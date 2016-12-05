@@ -7,7 +7,6 @@
 
 <script type='text/javascript' src='utils.js'></script>
 
-
 <!-- Fragment Shader //-->
 <script id="shader-fs" type="x-shader/x-fragment">
     #ifdef GL_ES
@@ -38,8 +37,13 @@
 	
 	var indices = []; //JavaScript array to store the indices of the square
 	var vertices = []; //JavaScript array to store the vertices of the square
-	
-
+	var verts_p = []; //vertices que esperan input
+	var indices_p = []; //vertices que esperan input
+	var i; //variable de seleccion
+	//defino los indices personalizados
+	i0 = 0;
+	i1 = 1;
+	i2 = 2;
 	/*
 	* The program contains a series of instructions that tell the Graphic Processing Unit (GPU)
 	* what to do with every vertex and fragment that we pass it. (more about this on chapter 3)
@@ -80,16 +84,37 @@
 	*/
 	function initBuffers() {
 		
-        
-        vertices =  [
-		-0.5,0.5,0.0, 	//Vertex 0
-		-0.5,-0.5,0.0, 	//Vertex 1
-		0.5,-0.5,0.0, 	//Vertex 2
-		0.5,0.5,0.0,	//Vertex 3
-		0,1,0.0]; 	//vertex 4
+        if(i == 0){
+	        vertices =  [
+			-0.5,0.5,0.0, 	//Vertex 0
+			-0.5,-0.5,0.0, 	//Vertex 1
+			0.5,-0.5,0.0, 	//Vertex 2
+			0.5,0.5,0.0,	//Vertex 3
+			0,1,0.0]; 	//vertex 4
 
-		indices = [3,2,1,3,1,0,4,3,0];
-		
+			indices = [3,2,1,3,1,0,4,3,0];
+		}
+		if(i == 1){
+	        vertices =  [
+			-0.5,0.5,0.0, 	//Vertex 0
+			-0.5,-0.5,0.0, 	//Vertex 1
+			0.5,-0.5,0.0, 	//Vertex 2
+			0.5,0.5,0.0,];	//Vertex 3;
+
+			indices = [3,2,1,3,1,0];
+		}
+		if(i == 2){
+	        vertices =  [
+			-0.5,0.5,0.0, 	//Vertex 0
+			-0.5,-0.5,0.0, 	//Vertex 1
+			0.5,-0.5,0.0,];	//Vertex 2;
+
+			indices = [2,1,0];
+		}
+		if(i == 3){
+			vertices = verts_p;
+			indices = indices_p;
+		}
 		//The following code snippet creates a vertex buffer and binds the vertices to it
 		squareVertexBuffer = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
@@ -142,17 +167,55 @@
 		//Renders the square!
 		renderLoop();
 	}
+	function cambiafigura(j){
+		if(j == 0){ //cuadrado
+			i = 1;
+		}
+		if (j== 1){ //pentagono
+			i = 0;
+		}
+		if (j== 2){ //triangulo
+			i = 2;
+		}
+		if (j== 3){ //personalizada
+			i = 3;
+		}
+		runWebGLApp();
+	}
+	function anyadevertice(){
+		verts_p.push(document.getElementById("x").value);
+		verts_p.push(document.getElementById("y").value);
+		verts_p.push(0);
+		if(verts_p.length>= 9){
+			indices_p.push(i0, i1, i2);
+			i0++;
+			i1++;
+			i2++;
+		}
+		document.getElementById("verts").innerHTML ="Vertices" + verts_p + "<br>Indices" +indices_p +"<br>";
+
+	}
+
 	 </script>
+	
 </head>
 
-<body onLoad='runWebGLApp()'>
+<body>
 <div id='top'>
-	<h1>WebGL Beginner's Guide - Chapter 2</h1>
-	<h2>Rendering a Square</h2>
-	<p>WebGL uses buffers to store and process vertex and index data. The mechanism is the same whether we are rendering 
-a simple object like a square or a racing car as we will see later on.</p>
+	<h2>Figuras</h2>
+	<button onclick="cambiafigura(1)">Pentagono</button>
+	<button onclick="cambiafigura(0)">Cuadrado</button>
+	<button onclick="cambiafigura(2)">Triángulo</button>
+	<button onclick="cambiafigura(3)">Figura personalizada</button>
+</div>
+<div>
+	<h3>Añade vertices</h3>
+	X: <input type="text" id="x" value="">
+	Y: <input type="text" id="y" value="">
+	<button onclick="anyadevertice()">Añade vértices</button>
 </div>
 
+<div id="verts"></div>
 <div id='contents'>
 	<div id='canvasContainer'>
 		<canvas id='canvas-element-id' width='480' height='400'>
@@ -160,7 +223,6 @@ a simple object like a square or a racing car as we will see later on.</p>
 		</canvas>
 	</div>
 </div>
-
 <div id='bottom'>
 </div>
 </html>
