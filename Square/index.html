@@ -6,7 +6,7 @@
 
 
 <script type='text/javascript' src='utils.js'></script>
-
+<script type="text/javascript" src="gl-matrix-min.js"></script>
 <!-- Fragment Shader //-->
 <script id="shader-fs" type="x-shader/x-fragment">
     #ifdef GL_ES
@@ -41,9 +41,14 @@
 	var indices_p = []; //vertices que esperan input
 	var i; //variable de seleccion
 	//defino los indices personalizados
-	i0 = 0;
-	i1 = 1;
-	i2 = 2;
+	var i0 = 0;
+	var i1 = 1;
+	var i2 = 2;
+	
+	var mvMatrix = mat4.create(); // The Model-View matrix
+	var pMatrix = mat4.create(); // The projection matrix
+	var renderingMode = 'TRIANGLES';		
+
 	/*
 	* The program contains a series of instructions that tell the Graphic Processing Unit (GPU)
 	* what to do with every vertex and fragment that we pass it. (more about this on chapter 3)
@@ -116,6 +121,31 @@
 			vertices = verts_p;
 			indices = indices_p;
 		}
+		if (i==4){
+
+		    vertices =[1.5, 0, 0, 
+		    -1.5, 1, 0, 
+		    -1.5, 0.809017,	0.587785,
+		    -1.5, 0.309017,	0.951057, 
+		    -1.5, -0.309017, 0.951057, 
+		    -1.5, -0.809017, 0.587785,
+		    -1.5, -1, 0, 
+		    -1.5, -0.809017, -0.587785,
+		    -1.5, -0.309017, -0.951057, 
+		    -1.5, 0.309017,	-0.951057, 
+		    -1.5, 0.809017,	-0.587785];
+		 
+		    indices = [0, 1, 2,
+		    0, 2, 3,
+		    0, 3, 4,
+		    0, 4, 5,
+		    0, 5, 6,
+		    0, 6, 7,
+		    0, 7, 8,
+		    0, 8, 9,
+		    0, 9, 10,
+		    0, 10, 1];			
+		}
 		//The following code snippet creates a vertex buffer and binds the vertices to it
 		squareVertexBuffer = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
@@ -133,19 +163,56 @@
 	* Draws the scene
 	*/
 	function drawScene(){
-		gl.clearColor(0.0, 0.0, 0.0, 1.0);
+		var angle = 60;//document.getElementById("angle").value;
+		var znear = document.getElementById("znear").value;
+		var zfar = document.getElementById("zfar").value;
+
+		gl.clearColor(0.5, 0.5, 0.5, 1.0);
 		gl.enable(gl.DEPTH_TEST);
 	
 		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-		gl.viewport(0,0,c_width+5, c_height+5);
+		gl.viewport(0,0,c_width, c_height);
 		
+	    //mat4.perspective(45, c_width / c_height, 0.1, 10000.0, pMatrix); //linea default
+	    //fieldOfViewYInRadians, aspect, zNear, zFar, dst
+		mat4.perspective(angle, c_width / c_height, znear, zfar, pMatrix);
+	    mat4.identity(mvMatrix);	
+	    mat4.translate(mvMatrix, [0.0, 0.0, -5.0]);
+
 		gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
 		gl.vertexAttribPointer(prg.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 		gl.enableVertexAttribArray(prg.vertexPosition);
 		
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
-		gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT,0);
+	    switch(renderingMode){
+  	        case "TRIANGLES": {
+				gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT,0);
+				break;
+		}
+  	        case "LINES": {
+				gl.drawElements(gl.LINES, indices.length, gl.UNSIGNED_SHORT,0);
+				break;
+		}
+  	        case "LINE_LOOP": {
+				gl.drawElements(gl.LINE_LOOP, indices.length, gl.UNSIGNED_SHORT,0);
+				break;
+		}
+  	        case "TRIANGLE_FAN": {
+				gl.drawElements(gl.TRIANGLE_FAN, indices.length, gl.UNSIGNED_SHORT,0);
+				break;
+		}
+  	        case "LINE_STRIP": {
+				gl.drawElements(gl.LINE_STRIP, indices.length, gl.UNSIGNED_SHORT,0);
+				break;
+		}
+  	        case "POINTS": {
+				gl.drawElements(gl.POINTS, indices.length, gl.UNSIGNED_SHORT,0);
+				break;
+		}
+
+		
 	}
+}
 	
 	/**
 	* Render Loop
@@ -181,6 +248,9 @@
 		if (j== 3){ //personalizada
 			i = 3;
 		}
+		if (j== 4){ //personalizada
+			i = 4;
+		}
 		runWebGLApp();
 	}
 	function anyadevertice(){
@@ -196,6 +266,10 @@
 		document.getElementById("verts").innerHTML ="Vertices" + verts_p + "<br>Indices" +indices_p +"<br>";
 
 	}
+	function changeRenderingMode(op){
+    renderingMode = (op.options[op.selectedIndex].value);
+}
+
 
 	 </script>
 	
@@ -208,6 +282,8 @@
 	<button onclick="cambiafigura(0)">Cuadrado</button>
 	<button onclick="cambiafigura(2)">Triángulo</button>
 	<button onclick="cambiafigura(3)">Figura personalizada</button>
+	<button onclick="cambiafigura(4)">Cono</button>
+
 </div>
 <div>
 	<h3>Añade vertices</h3>
@@ -224,6 +300,20 @@
 		</canvas>
 	</div>
 </div>
+	Angulo: <input type="text" id="angle" value="45" onchange='drawScene();'>
+	Znear: <input type="text" id="znear" value="0.1" onchange='drawScene();'>
+	Zfar: <input type="text" id="zfar" value="10000" onchange='drawScene();'>
+ 
+    <select onchange="changeRenderingMode(this)">
+        <option value="TRIANGLES" select="selected">TRIANGLES</option>
+        <option value="LINES">LINES</option>
+        <option value="POINTS">POINTS</option>
+        <option value="LINE_LOOP">LINE_LOOP</option>
+        <option value="LINE_STRIP">LINE_STRIP</option>
+        <option value="TRIANGLE_STRIP">TRIANGLE_STRIP</option>
+        <option value="TRIANGLE_FAN">TRIANGLE_FAN</option>
+    </select>
+
 <div id='bottom'>
 </div>
 </html>
