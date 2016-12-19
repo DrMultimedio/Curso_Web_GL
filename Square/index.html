@@ -7,7 +7,12 @@
 
 <script type='text/javascript' src='utils.js'></script>
 <script type="text/javascript" src="gl-matrix-min.js"></script>
+<script type="text/javascript" src="three.min.js"></script>
+<script type="text/javascript" src="OBJLoader.js"></script>
+
+
 <!-- Fragment Shader //-->
+
 <script id="shader-fs" type="x-shader/x-fragment">
     #ifdef GL_ES
     precision highp float;
@@ -211,27 +216,37 @@
 		if (i==4){
 
 		    vertices =[1.5, 0, 0, 
-		    -1.5, 1, 0, 
-		    -1.5, 0.809017,	0.587785,
-		    -1.5, 0.309017,	0.951057, 
-		    -1.5, -0.309017, 0.951057, 
-		    -1.5, -0.809017, 0.587785,
-		    -1.5, -1, 0, 
-		    -1.5, -0.809017, -0.587785,
-		    -1.5, -0.309017, -0.951057, 
-		    -1.5, 0.309017,	-0.951057, 
-		    -1.5, 0.809017,	-0.587785];
+					    -1.5, 1, 0, 
+					    -1.5, 0.809017,	0.587785,
+					    -1.5, 0.309017,	0.951057, 
+					    -1.5, -0.309017, 0.951057, 
+					    -1.5, -0.809017, 0.587785,
+					    -1.5, -1, 0, 
+					    -1.5, -0.809017, -0.587785,
+					    -1.5, -0.309017, -0.951057, 
+					    -1.5, 0.309017,	-0.951057, 
+					    -1.5, 0.809017,	-0.587785];
 		 
 		    indices = [0, 1, 2,
-		    0, 2, 3,
-		    0, 3, 4,
-		    0, 4, 5,
-		    0, 5, 6,
-		    0, 6, 7,
-		    0, 7, 8,
-		    0, 8, 9,
-		    0, 9, 10,
-		    0, 10, 1];			
+					    0, 2, 3,
+					    0, 3, 4,
+					    0, 4, 5,
+					    0, 5, 6,
+					    0, 6, 7,
+					    0, 7, 8,
+					    0, 8, 9,
+					    0, 9, 10,
+					    0, 10, 1];			
+		}
+		if(i==5){
+			var oLoader = new THREE.OBJLoader();
+			oLoader.load('bb8.obj', function(object, materials) {
+				alert("f2pbtw");
+				for(key in object){
+					console.log(key);
+				}
+				var json = object.toJSON;
+			});
 		}
 		runWebGLApp();
 	}
@@ -325,12 +340,17 @@
 	initBuffers();
 }
 	function rotar_pos(){
-	console.log(vertices.length);
+		console.log(vertices.length);
+		var aux;
+		for(k = 3; k<vertices.length; k+=3) {
+			console.log("vert entrada " + vertices[k] +" " + vertices[k-1]);
+			//componente z
+			aux = vertices[k];
+			vertices[k] = vertices[k-1]*Math.sin(Math.PI / 4)  + vertices[k]*Math.cos(Math.PI / 4);
+			//componente y 
+			vertices[k-1] = vertices[k-1]*Math.cos(Math.PI / 4)  - aux*Math.sin(Math.PI / 4);
 
-		for(k = 3; k<vertices.length-2; k+=3) {
-			console.log("vert entrada " + vertices[k]);
-			vertices[k] = vertices[k]+0.1;
-			console.log("vert salida " + vertices[k]);
+			console.log("vert salida " + vertices[k] +" " + vertices[k-1]);
 
 	}
 	console.log(vertices.toString());
@@ -360,6 +380,7 @@
 	<button onclick="cambiafigura(2)">Triángulo</button>
 	<button onclick="cambiafigura(3)">Figura personalizada</button>
 	<button onclick="cambiafigura(4)">Cono</button>
+	<button onclick="cambiafigura(5)">Cono</button>
 
 </div>
 <div>
