@@ -3,6 +3,7 @@
 
 <head>
 <title>WebGL Beginner's Guide - Chapter 2 - Rendering a Square</title>
+	<meta charset="utf-8">
 
 
 <script type='text/javascript' src='utils.js'></script>
@@ -59,6 +60,32 @@
 	* what to do with every vertex and fragment that we pass it. (more about this on chapter 3)
 	* The vertex shader and the fragment shader together are called the program.
 	*/
+	//manejador
+	window.onkeyup = function(e) {
+	   var key = e.keyCode ? e.keyCode : e.which;
+
+	   	if (key == 38) {
+	   		arriba();
+	   	}else if (key == 40) {
+	   		abajo();
+   		}else if (key == 37) {
+	   		izquierda();
+   		}else if (key == 39) {
+	   		derecha();
+   		}else if (key == 87) {
+	   		rotar_pos_x();
+   		}else if (key == 83) {
+	   		rotar_neg_x();
+   		}else if (key == 81) {
+	   		rotar_pos_y();
+   		}else if (key == 65) {
+	   		rotar_neg_y();
+   		}else if (key == 69) {
+	   		rotar_pos_z();
+   		}else if (key == 68) {
+	   		rotar_neg_z();
+   		}
+   }
 	function initProgram() {
 		var fgShader = utils.getShader(gl, "shader-fs");
 		var vxShader = utils.getShader(gl, "shader-vs");
@@ -241,12 +268,12 @@
 		if(i==5){
 			var oLoader = new THREE.OBJLoader();
 			oLoader.load('bb8.obj', function(object, materials) {
-				alert("f2pbtw");
-				for(key in object){
-					console.log(key);
-				}
+				document.getElementById("nombre_obj").innerHTML = object.toJSON;
+				alert(object.isObject3D);
 				var json = object.toJSON;
 			});
+¡
+
 		}
 		runWebGLApp();
 	}
@@ -339,16 +366,17 @@
 	console.log(vertices.toString());
 	initBuffers();
 }
-	function rotar_pos(){
+	var angulo = Math.PI/ 16;
+	function rotar_pos_x(){
 		console.log(vertices.length);
 		var aux;
-		for(k = 3; k<vertices.length; k+=3) {
+		for(k = 2; k<vertices.length; k+=3) {
 			console.log("vert entrada " + vertices[k] +" " + vertices[k-1]);
 			//componente z
 			aux = vertices[k];
-			vertices[k] = vertices[k-1]*Math.sin(Math.PI / 4)  + vertices[k]*Math.cos(Math.PI / 4);
+			vertices[k] = vertices[k-1]*Math.sin(angulo)  + vertices[k]*Math.cos(angulo);
 			//componente y 
-			vertices[k-1] = vertices[k-1]*Math.cos(Math.PI / 4)  - aux*Math.sin(Math.PI / 4);
+			vertices[k-1] = vertices[k-1]*Math.cos(angulo)  - aux*Math.sin(angulo);
 
 			console.log("vert salida " + vertices[k] +" " + vertices[k-1]);
 
@@ -356,13 +384,103 @@
 	console.log(vertices.toString());
 	initBuffers();
 }
-	function rotar_neg(){
-	console.log(vertices.length);
+	function rotar_pos_x(){
+		console.log(vertices.length);
+		var aux;
+		for(k = 2; k<vertices.length; k+=3) {
+			console.log("vert entrada " + vertices[k] +" " + vertices[k-1]);
+			//componente z
+			aux = vertices[k];
+			vertices[k] = vertices[k-1]*Math.sin(angulo)  + vertices[k]*Math.cos(angulo);
+			//componente y 
+			vertices[k-1] = vertices[k-1]*Math.cos(angulo)  - aux*Math.sin(angulo);
 
-		for(k = 3; k<vertices.length-2; k+=3) {
-			console.log("vert entrada " + vertices[k]);
-			vertices[k] = vertices[k]-0.1;
-			console.log("vert salida " + vertices[k]);
+			console.log("vert salida " + vertices[k] +" " + vertices[k-1]);
+
+	}
+	console.log(vertices.toString());
+	initBuffers();
+}
+	function rotar_neg_x(){
+		console.log(vertices.length);
+		var aux;
+		for(k = 2; k<vertices.length; k+=3) {
+			console.log("vert entrada " + vertices[k] +" " + vertices[k-1]);
+			//componente z
+			aux = vertices[k];
+			vertices[k] =  +vertices[k-1]*Math.sin(-angulo)   + vertices[k]*Math.cos(-angulo);
+			//componente y 
+			vertices[k-1] = + vertices[k-1]*Math.cos(-angulo)  - aux*Math.sin(-angulo);
+
+			console.log("vert salida " + vertices[k] +" " + vertices[k-1]);
+
+	}
+	console.log(vertices.toString());
+	initBuffers();
+}
+	function rotar_pos_z(){
+		console.log(vertices.length);
+		var aux;
+		for(k = 1; k<vertices.length; k+=3) {
+			console.log("vert entrada " + vertices[k] +" " + vertices[k-1]);
+			//componente z
+			aux = vertices[k];
+			vertices[k] = vertices[k-1]*Math.sin(angulo)  + vertices[k]*Math.cos(angulo);
+			//componente y 
+			vertices[k-1] = vertices[k-1]*Math.cos(angulo)  - aux*Math.sin(angulo);
+
+			console.log("vert salida " + vertices[k] +" " + vertices[k-1]);
+
+	}
+	console.log(vertices.toString());
+	initBuffers();
+}
+	function rotar_neg_z(){
+		console.log(vertices.length);
+		var aux;
+		for(k = 1; k<vertices.length; k+=3) {
+			console.log("vert entrada " + vertices[k] +" " + vertices[k-1]);
+			//componente z
+			aux = vertices[k];
+			vertices[k] =  vertices[k-1]*Math.sin(-angulo)  + vertices[k]*Math.cos(-angulo);
+			//componente y 
+			vertices[k-1] =  vertices[k-1]*Math.cos(-angulo)  - aux*Math.sin(-angulo);
+
+			console.log("vert salida " + vertices[k] +" " + vertices[k-1]);
+
+	}
+	console.log(vertices.toString());
+	initBuffers();
+}
+	function rotar_pos_y(){
+		console.log(vertices.length);
+		var aux;
+		for(k = 2; k<vertices.length; k+=3) {
+			console.log("vert entrada " + vertices[k] +" " + vertices[k-2]);
+			//componente z
+			aux = vertices[k];
+			vertices[k] = vertices[k-2]*Math.sin(angulo)  + vertices[k]*Math.cos(angulo);
+			//componente y 
+			vertices[k-2] = vertices[k-2]*Math.cos(angulo)  - aux*Math.sin(angulo);
+
+			console.log("vert salida " + vertices[k] +" " + vertices[k-2]);
+
+	}
+	console.log(vertices.toString());
+	initBuffers();
+}
+	function rotar_neg_y(){
+		console.log(vertices.length);
+		var aux;
+		for(k = 2; k<vertices.length; k+=3) {
+			console.log("vert entrada " + vertices[k] +" " + vertices[k-2]);
+			//componente z
+			aux = vertices[k];
+			vertices[k] = vertices[k-2]*Math.sin(-angulo)  + vertices[k]*Math.cos(-angulo);
+			//componente y 
+			vertices[k-2] = vertices[k-2]*Math.cos(-angulo) - aux*Math.sin(-angulo);
+
+			console.log("vert salida " + vertices[k] +" " + vertices[k-2]);
 
 	}
 	console.log(vertices.toString());
@@ -380,8 +498,8 @@
 	<button onclick="cambiafigura(2)">Triángulo</button>
 	<button onclick="cambiafigura(3)">Figura personalizada</button>
 	<button onclick="cambiafigura(4)">Cono</button>
-	<button onclick="cambiafigura(5)">Cono</button>
-
+	<button onclick="cambiafigura(5)">Objeto</button>
+	<span id= "nombre_obj"></span>
 </div>
 <div>
 	<h3>Añade vertices</h3>
@@ -411,9 +529,16 @@
 	<button onclick="acercar()">Acercar</button>
 	<button onclick="arriba()">Subir</button>
 	<button onclick="abajo()">Bajar</button>
+	<button onclick="izquierda()">Izquierda</button>
 	<button onclick="derecha()">Derecha</button>
-	<button onclick="rotar_pos()">Rotar +</button>
-	<button onclick="rotar_neg()">Rotar -</button>
+
+	<br>
+	<button onclick="rotar_pos_x()">Rotar x+</button>
+	<button onclick="rotar_neg_x()">Rotar x-</button>
+	<button onclick="rotar_pos_z()">Rotar z+</button>
+	<button onclick="rotar_neg_z()">Rotar z-</button>
+	<button onclick="rotar_pos_y()">Rotar y+</button>
+	<button onclick="rotar_neg_y()">Rotar y-</button>
 
 <div id='bottom'>
 </div>
