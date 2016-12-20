@@ -8,8 +8,8 @@
 
 <script type='text/javascript' src='utils.js'></script>
 <script type="text/javascript" src="gl-matrix-min.js"></script>
-<script type="text/javascript" src="three.min.js"></script>
-<script type="text/javascript" src="OBJLoader.js"></script>
+<script type="text/javascript" src="cargaObj.js"></script>
+<script type="text" id="rodon" src="bb8.obj"></script>
 
 
 <!-- Fragment Shader //-->
@@ -54,6 +54,9 @@
 	var mvMatrix = mat4.create(); // The Model-View matrix
 	var pMatrix = mat4.create(); // The projection matrix
 	var renderingMode = 'TRIANGLES';		
+	var objeto3d;
+	var fileInput;
+
 
 	/*
 	* The program contains a series of instructions that tell the Graphic Processing Unit (GPU)
@@ -266,226 +269,260 @@
 					    0, 10, 1];			
 		}
 		if(i==5){
-			var oLoader = new THREE.OBJLoader();
-			oLoader.load('bb8.obj', function(object, materials) {
-				document.getElementById("nombre_obj").innerHTML = object.toJSON;
-				alert(object.isObject3D);
-				var json = object.toJSON;
-			});
 
-
+			vertices = verts_p;
+			indices = indices_p;
+			alejar_obj();
 		}
 		runWebGLApp();
 	}
-	function anyadevertice(){
-		verts_p.push(document.getElementById("x").value);
-		verts_p.push(document.getElementById("y").value);
-		verts_p.push(0);
-		if(verts_p.length>= 9){
-			indices_p.push(i0, i1, i2);
-			i0++;
-			i1++;
-			i2++;
-		}
-		document.getElementById("verts").innerHTML ="Vertices" + verts_p + "<br>Indices" +indices_p +"<br>";
 
-	}
 	function changeRenderingMode(op){
     renderingMode = (op.options[op.selectedIndex].value);
 }
-	function alejar(){
-	console.log(vertices.length);
+	function alejar_obj(){
+	//console.log(vertices.length);
 
 		for(k = 0; k<vertices.length; k++) {
-			console.log("vert entrada " + vertices[k]);
-			vertices[k] = vertices[k]/1.1;
-			console.log("vert salida " + vertices[k]);
+			//console.log("vert entrada " + vertices[k]);
+			vertices[k] = vertices[k]-40;
+			vertices[k] = vertices[k]/100;
+			//console.log("vert salida " + vertices[k]);
 
 	}
-	console.log(vertices.toString());
+}
+
+
+	function alejar(){
+	//console.log(vertices.length);
+
+		for(k = 0; k<vertices.length; k++) {
+			//console.log("vert entrada " + vertices[k]);
+			vertices[k] = vertices[k]/1.1;
+			//console.log("vert salida " + vertices[k]);
+
+	}
+	//console.log(vertices.toString());
 	initBuffers();
 }
 
 	function acercar(){
-	console.log(vertices.length);
+	//console.log(vertices.length);
 
 		for(k = 0; k<vertices.length; k++) {
-			console.log("vert entrada " + vertices[k]);
+			//console.log("vert entrada " + vertices[k]);
 			vertices[k] = vertices[k]*1.1;
-			console.log("vert salida " + vertices[k]);
+			//console.log("vert salida " + vertices[k]);
 
 	}
-	console.log(vertices.toString());
+	//console.log(vertices.toString());
 	initBuffers();
 }
 	function arriba(){
-	console.log(vertices.length);
+	//console.log(vertices.length);
 
 		for(k = 1; k<vertices.length-1; k+=3) {
-			console.log("vert entrada " + vertices[k]);
+			//console.log("vert entrada " + vertices[k]);
 			vertices[k] = vertices[k]+0.1;
-			console.log("vert salida " + vertices[k]);
+			//console.log("vert salida " + vertices[k]);
 
 	}
-	console.log(vertices.toString());
+	//console.log(vertices.toString());
 	initBuffers();
 }
 	function abajo(){
-	console.log(vertices.length);
+	//console.log(vertices.length);
 
 		for(k = 1; k<vertices.length-1; k+=3) {
-			console.log("vert entrada " + vertices[k]);
+			//console.log("vert entrada " + vertices[k]);
 			vertices[k] = vertices[k]-0.1;
-			console.log("vert salida " + vertices[k]);
+			//console.log("vert salida " + vertices[k]);
 
 	}
-	console.log(vertices.toString());
+	//console.log(vertices.toString());
 	initBuffers();
 }
 	function derecha(){
-	console.log(vertices.length);
+	//console.log(vertices.length);
 
 		for(k = 0; k<vertices.length; k+=3) {
-			console.log("vert entrada " + vertices[k]);
+			//console.log("vert entrada " + vertices[k]);
 			vertices[k] = vertices[k]+0.1;
-			console.log("vert salida " + vertices[k]);
+			//console.log("vert salida " + vertices[k]);
 
 	}
-	console.log(vertices.toString());
+	//console.log(vertices.toString());
 	initBuffers();
 }
 	function izquierda(){
-	console.log(vertices.length);
+	//console.log(vertices.length);
 
 		for(k = 0; k<vertices.length; k+=3) {
-			console.log("vert entrada " + vertices[k]);
+			//console.log("vert entrada " + vertices[k]);
 			vertices[k] = vertices[k]-0.1;
-			console.log("vert salida " + vertices[k]);
+			//console.log("vert salida " + vertices[k]);
 
 	}
-	console.log(vertices.toString());
+	//console.log(vertices.toString());
 	initBuffers();
 }
 	var angulo = Math.PI/ 16;
 	function rotar_pos_x(){
-		console.log(vertices.length);
+		//console.log(vertices.length);
 		var aux;
 		for(k = 2; k<vertices.length; k+=3) {
-			console.log("vert entrada " + vertices[k] +" " + vertices[k-1]);
+			//console.log("vert entrada " + vertices[k] +" " + vertices[k-1]);
 			//componente z
 			aux = vertices[k];
 			vertices[k] = vertices[k-1]*Math.sin(angulo)  + vertices[k]*Math.cos(angulo);
 			//componente y 
 			vertices[k-1] = vertices[k-1]*Math.cos(angulo)  - aux*Math.sin(angulo);
 
-			console.log("vert salida " + vertices[k] +" " + vertices[k-1]);
+			//console.log("vert salida " + vertices[k] +" " + vertices[k-1]);
 
 	}
-	console.log(vertices.toString());
+	//console.log(vertices.toString());
 	initBuffers();
 }
 	function rotar_pos_x(){
-		console.log(vertices.length);
+		//console.log(vertices.length);
 		var aux;
 		for(k = 2; k<vertices.length; k+=3) {
-			console.log("vert entrada " + vertices[k] +" " + vertices[k-1]);
+			//console.log("vert entrada " + vertices[k] +" " + vertices[k-1]);
 			//componente z
 			aux = vertices[k];
 			vertices[k] = vertices[k-1]*Math.sin(angulo)  + vertices[k]*Math.cos(angulo);
 			//componente y 
 			vertices[k-1] = vertices[k-1]*Math.cos(angulo)  - aux*Math.sin(angulo);
 
-			console.log("vert salida " + vertices[k] +" " + vertices[k-1]);
+			//console.log("vert salida " + vertices[k] +" " + vertices[k-1]);
 
 	}
-	console.log(vertices.toString());
+	//console.log(vertices.toString());
 	initBuffers();
 }
 	function rotar_neg_x(){
-		console.log(vertices.length);
+		//console.log(vertices.length);
 		var aux;
 		for(k = 2; k<vertices.length; k+=3) {
-			console.log("vert entrada " + vertices[k] +" " + vertices[k-1]);
+			//console.log("vert entrada " + vertices[k] +" " + vertices[k-1]);
 			//componente z
 			aux = vertices[k];
 			vertices[k] =  +vertices[k-1]*Math.sin(-angulo)   + vertices[k]*Math.cos(-angulo);
 			//componente y 
 			vertices[k-1] = + vertices[k-1]*Math.cos(-angulo)  - aux*Math.sin(-angulo);
 
-			console.log("vert salida " + vertices[k] +" " + vertices[k-1]);
+			//console.log("vert salida " + vertices[k] +" " + vertices[k-1]);
 
 	}
-	console.log(vertices.toString());
+	//console.log(vertices.toString());
 	initBuffers();
 }
 	function rotar_pos_z(){
-		console.log(vertices.length);
+		//console.log(vertices.length);
 		var aux;
 		for(k = 1; k<vertices.length; k+=3) {
-			console.log("vert entrada " + vertices[k] +" " + vertices[k-1]);
+			//console.log("vert entrada " + vertices[k] +" " + vertices[k-1]);
 			//componente z
 			aux = vertices[k];
 			vertices[k] = vertices[k-1]*Math.sin(angulo)  + vertices[k]*Math.cos(angulo);
 			//componente y 
 			vertices[k-1] = vertices[k-1]*Math.cos(angulo)  - aux*Math.sin(angulo);
 
-			console.log("vert salida " + vertices[k] +" " + vertices[k-1]);
+			//console.log("vert salida " + vertices[k] +" " + vertices[k-1]);
 
 	}
-	console.log(vertices.toString());
+	//console.log(vertices.toString());
 	initBuffers();
 }
 	function rotar_neg_z(){
-		console.log(vertices.length);
+		//console.log(vertices.length);
 		var aux;
 		for(k = 1; k<vertices.length; k+=3) {
-			console.log("vert entrada " + vertices[k] +" " + vertices[k-1]);
+			//console.log("vert entrada " + vertices[k] +" " + vertices[k-1]);
 			//componente z
 			aux = vertices[k];
 			vertices[k] =  vertices[k-1]*Math.sin(-angulo)  + vertices[k]*Math.cos(-angulo);
 			//componente y 
 			vertices[k-1] =  vertices[k-1]*Math.cos(-angulo)  - aux*Math.sin(-angulo);
 
-			console.log("vert salida " + vertices[k] +" " + vertices[k-1]);
+			//console.log("vert salida " + vertices[k] +" " + vertices[k-1]);
 
 	}
-	console.log(vertices.toString());
+	//console.log(vertices.toString());
 	initBuffers();
 }
 	function rotar_pos_y(){
-		console.log(vertices.length);
+		//console.log(vertices.length);
 		var aux;
 		for(k = 2; k<vertices.length; k+=3) {
-			console.log("vert entrada " + vertices[k] +" " + vertices[k-2]);
+			//console.log("vert entrada " + vertices[k] +" " + vertices[k-2]);
 			//componente z
 			aux = vertices[k];
 			vertices[k] = vertices[k-2]*Math.sin(angulo)  + vertices[k]*Math.cos(angulo);
 			//componente y 
 			vertices[k-2] = vertices[k-2]*Math.cos(angulo)  - aux*Math.sin(angulo);
 
-			console.log("vert salida " + vertices[k] +" " + vertices[k-2]);
+			//console.log("vert salida " + vertices[k] +" " + vertices[k-2]);
 
 	}
-	console.log(vertices.toString());
+	//console.log(vertices.toString());
 	initBuffers();
 }
 	function rotar_neg_y(){
-		console.log(vertices.length);
+		//console.log(vertices.length);
 		var aux;
 		for(k = 2; k<vertices.length; k+=3) {
-			console.log("vert entrada " + vertices[k] +" " + vertices[k-2]);
+			//console.log("vert entrada " + vertices[k] +" " + vertices[k-2]);
 			//componente z
 			aux = vertices[k];
 			vertices[k] = vertices[k-2]*Math.sin(-angulo)  + vertices[k]*Math.cos(-angulo);
 			//componente y 
 			vertices[k-2] = vertices[k-2]*Math.cos(-angulo) - aux*Math.sin(-angulo);
 
-			console.log("vert salida " + vertices[k] +" " + vertices[k-2]);
+			//console.log("vert salida " + vertices[k] +" " + vertices[k-2]);
 
 	}
-	console.log(vertices.toString());
+	//console.log(vertices.toString());
 	initBuffers();
 }
+window.onload = function() {
+	fileInput = document.getElementById('fileInput');
+	fileInput.addEventListener('change', function(e) {
+
+		var file = fileInput.files[0];
+		var textType = /.*/;
+
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				objeto3d = reader.result;
+				//PARSEAMOS EL OBJ
+				var objStr = reader.result;
+				var mesh= new OBJ.Mesh(objStr);
+				//console.log("CARGA DE OBJETO CORRECTA");
+
+				for(key in mesh){
+					//console.log(key);
+				}
+				verts_p = mesh.vertices;
+				indices_p = mesh.indices;
+				
+
+
+
+
+			}
+
+			reader.readAsText(file);	
+
+	});
+
+}
+
+
+
+
 </script>
 	
 </head>
@@ -496,22 +533,19 @@
 	<button onclick="cambiafigura(1)">Pentagono</button>
 	<button onclick="cambiafigura(0)">Cuadrado</button>
 	<button onclick="cambiafigura(2)">Triángulo</button>
-	<button onclick="cambiafigura(3)">Figura personalizada</button>
 	<button onclick="cambiafigura(4)">Cono</button>
 	<button onclick="cambiafigura(5)">Objeto</button>
 	<span id= "nombre_obj"></span>
 </div>
-<div>
-	<h3>Añade vertices</h3>
-	X: <input type="text" id="x" value="">
-	Y: <input type="text" id="y" value="">
-	<button onclick="anyadevertice()">Añade vértices</button>
-</div>
+	<div>
+		Cargar modelo
+		<input type="file" id="fileInput">
+	</div>
 
 <div id="verts"></div>
 <div id='contents'>
 	<div id='canvasContainer'>
-		<canvas id='canvas-element-id' width='480' height='400'>
+		<canvas id='canvas-element-id' width='800' height='600'>
 			Your browser does not support the HTML5 canvas element.
 		</canvas>
 	</div>
