@@ -40,10 +40,14 @@ Transformacion.prototype.escalar = function(x,y,z) {
 
 Transformacion.prototype.beginDraw = function() {
 	aux = mat4.create();
+	//guardamos la matriz antes de apilarla
 	mat4.set(Matriz, aux);
+	//apilamos la matriz con la que estamos trabajando
 	this.pila[].push(aux);
+	//multiplicamos la matriz de transformación por la actual
 	mat4.multiply(Matriz, this.matriz);
 };
 Transformacion.prototype.endDraw = function() {
-  	matriz = this.pila.pop();
+	//desapilamos y ponemos la matriz desapilada por la actual
+  	Matriz = this.pila.pop();
 };

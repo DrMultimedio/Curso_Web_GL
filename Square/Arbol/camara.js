@@ -41,11 +41,9 @@ Camara.prototype.setParalela = function() {
 
 
 Camara.prototype.beginDraw = function() {
-	// body...
 
 };
 
 Camara.prototype.endDraw = function() {
-	// body...
 
 };
