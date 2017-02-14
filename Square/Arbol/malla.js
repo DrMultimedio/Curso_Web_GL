@@ -10,7 +10,7 @@ Malla.prototype.getMalla = function() {
 };
 Malla.prototype.beginDraw = function() {
 
-
+//a implementar en el gestor de recursos
 };
 Malla.prototype.endDraw = function() {
 

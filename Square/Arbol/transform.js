@@ -2,7 +2,7 @@ function Transformacion(){
 	mat = mat4.create();
 	mat4.identity(mat);
 	this.matriz = mat;
-	this.pila[] = null;
+	this.pila = null;
 }
 Transformacion.prototype.identidad = function() {
 
@@ -43,7 +43,7 @@ Transformacion.prototype.beginDraw = function() {
 	//guardamos la matriz antes de apilarla
 	mat4.set(Matriz, aux);
 	//apilamos la matriz con la que estamos trabajando
-	this.pila[].push(aux);
+	this.pila.push(aux);
 	//multiplicamos la matriz de transformación por la actual
 	mat4.multiply(Matriz, this.matriz);
 };
