@@ -14,13 +14,19 @@ Nodo.prototype.getPadre = function() {
 };
 Nodo.prototype.addHijo = function() {
 
-	var hijo = new Nodo();
+	hijo = new Nodo();
 	hijo.padre = this;
 	this.hijos.push(hijo);
 	return hijo; 
 
 };
+Nodo.prototype.addHijoCreado = function(hijo) {
 
+	hijo.padre = this;
+	this.hijos.push(hijo);
+	return hijo; 
+
+};
 Nodo.prototype.getHijos = function() {
 	return this.hijos;
 };
@@ -38,7 +44,7 @@ Nodo.prototype.remHijo = function(hijo) {
 		return false;
 	}
 };
-Nodo.prototype.draw = function() {
+Nodo.prototype.drawImprime = function() {
 
 	if(this.entidad != null){
 		this.entidad.beginDraw();
@@ -46,11 +52,10 @@ Nodo.prototype.draw = function() {
 	}
 	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Me imprimo <br>";
 	if(this.hijos.length>0){
-			alert(this.hijos.length);
 
-			document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "<h3>Mando imprimir a mis hijos</h3><br>";
-		for(i = 0; i<this.hijos.length ; i++){
-			this.hijos[i].draw();
+			document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "<h3>Mando imprimir a mis "+this.hijos.length + " hijos</h3><br>";
+		for(var i = 0; i<this.hijos.length ; i++){
+			this.hijos[i].drawImprime();
 		}
 		document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + 	"<h3>Mis hijos han terminado</h3> <br>";
 	}
@@ -60,6 +65,19 @@ Nodo.prototype.draw = function() {
 
 		this.entidad.endDraw();
 	}
+};
+
+Nodo.prototype.draw = function() {
+  if(this.entidad != null)
+      this.entidad.beginDraw();
+
+  for(var i=0;i<this.hijos.length;i++){
+    this.hijos[i].draw();
+  }
+
+  if(this.entidad != null)
+    this.entidad.endDraw();
+  
 };
 
 
