@@ -6,11 +6,6 @@ function main () {
 
 	nodHijo = nodPadre.addHijo().addHijo();
 
-	/*
-	var nodHijo = new Nodo();
-	nodHijo.addHijo();
-	nodPadre.addHijoCreado(nodHijo);
-	*/
 	nodPadre.drawImprime();
 
 }
