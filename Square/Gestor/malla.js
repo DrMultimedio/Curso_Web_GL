@@ -9,8 +9,7 @@ function Malla(){
 
 	this.nTriangulos = null;
 }
-
-Malla.prototype.cargaFichero = function(fich) {
+Malla.prototype.cargaFicheroImprime = function(fich) {
 //codigo adaptado de stackoverflow por el usuario Edward Z. Yang
 
 var peticion = new XMLHttpRequest();
@@ -18,6 +17,21 @@ peticion.open('GET', fich);
 peticion.onreadystatechange = function() {
 document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + peticion.responseText;
 
+
+}
+peticion.send();
+//fin de codigo adaptado
+
+
+};
+Malla.prototype.cargaFichero = function(fich) {
+//codigo adaptado de stackoverflow por el usuario Edward Z. Yang
+
+var peticion = new XMLHttpRequest();
+peticion.open('GET', fich);
+peticion.onreadystatechange = function() {
+
+//pendiente de hacer
 
 }
 peticion.send();
