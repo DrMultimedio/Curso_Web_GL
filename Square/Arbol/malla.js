@@ -15,3 +15,16 @@ Malla.prototype.beginDraw = function() {
 Malla.prototype.endDraw = function() {
 
 };
+
+
+Malla.prototype.beginDrawImprime = function() {
+
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Soy una malla y me imprimo <br>";
+
+
+};
+Malla.prototype.endDrawImprime = function() {
+//a implementar en el gestor de recursos
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Soy una malla y termino de imprimirme <br>";
+
+};

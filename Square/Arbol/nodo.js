@@ -45,12 +45,12 @@ Nodo.prototype.remHijo = function(hijo) {
 	}
 };
 Nodo.prototype.drawImprime = function() {
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Me imprimo <br>";
 
 	if(this.entidad != null){
-		this.entidad.beginDraw();
+		this.entidad.beginDrawImprime();
 
 	}
-	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Me imprimo <br>";
 	if(this.hijos.length>0){
 
 			document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "<h3>Mando imprimir a mis "+this.hijos.length + " hijos</h3><br>";
@@ -59,12 +59,13 @@ Nodo.prototype.drawImprime = function() {
 		}
 		document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + 	"<h3>Mis hijos han terminado</h3> <br>";
 	}
-		document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "He terminado de imprimirme <br>";
 
 	if(this.entidad != null){
 
-		this.entidad.endDraw();
+		this.entidad.endDrawImprime();
 	}
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "He terminado de imprimirme <br>";
+
 };
 
 Nodo.prototype.draw = function() {
