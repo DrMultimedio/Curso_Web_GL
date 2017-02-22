@@ -499,12 +499,10 @@ window.onload = function() {
 				objeto3d = reader.result;
 				//PARSEAMOS EL OBJ
 				var objStr = reader.result;
+
 				var mesh= new OBJ.Mesh(objStr);
 				//console.log("CARGA DE OBJETO CORRECTA");
 
-				for(key in mesh){
-					//console.log(key);
-				}
 				verts_p = mesh.vertices;
 				indices_p = mesh.indices;
 				cambiafigura(5);

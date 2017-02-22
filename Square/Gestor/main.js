@@ -1,4 +1,7 @@
 function main () {
 	malla = new Malla();
-	malla.cargaFicheroImprime("./prueba.obj");
+	malla.cargaFichero("./prueba.obj");
+
+	malla.draw();
+
 }
