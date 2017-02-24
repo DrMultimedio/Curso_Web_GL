@@ -4,6 +4,7 @@ function Malla(){
 
 Malla.prototype.cargarMalla = function(archivo) {
 	this.malla = archivo;
+	//comprobar si el archivo ya está cargado en el gestor de archivos
 };
 Malla.prototype.getMalla = function() {
 	return this.malla;

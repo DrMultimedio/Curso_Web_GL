@@ -52,10 +52,10 @@ Transformacion.prototype.endDraw = function() {
 };
 
 Transformacion.prototype.beginDrawImprime = function() {
-	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Soy una transformación y me imprimo <br>";
-	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + Matriz + "<br>";
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "<span>Soy una transformación y me imprimo <br> </span>";
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML +"<span>" + Matriz + "</span><br>";
 	
-	//¿como se con que matriz estoy trabajando si está despues en el arbol ???
+	//ese trabaja con la matriz de transformacion
 	
 	aux = mat4.create();
 	//guardamos la matriz antes de apilarla
@@ -64,11 +64,11 @@ Transformacion.prototype.beginDrawImprime = function() {
 	pila.push(aux);
 	//multiplicamos la matriz de transformación por la actual
 	mat4.multiply(Matriz, this.matrizTrans);
-	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + Matriz + "<br>";
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML +"<span>" + Matriz + "</span><br>";
 
 };
 Transformacion.prototype.endDrawImprime = function() {
-		document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Soy una transformación y termino de imprimirme <br>";
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "<span>Soy una transformación y termino de imprimirme <br> </span>";
 
 	//desapilamos y ponemos la matriz desapilada por la actual
   	Matriz = pila.pop();

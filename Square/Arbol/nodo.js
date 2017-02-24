@@ -45,7 +45,7 @@ Nodo.prototype.remHijo = function(hijo) {
 	}
 };
 Nodo.prototype.drawImprime = function() {
-	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Me imprimo <br>";
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "<span>Me imprimo </span> <br>";
 
 	if(this.entidad != null){
 		this.entidad.beginDrawImprime();
@@ -53,18 +53,19 @@ Nodo.prototype.drawImprime = function() {
 	}
 	if(this.hijos.length>0){
 
-			document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "<h3>Mando imprimir a mis "+this.hijos.length + " hijos</h3><br>";
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "<h3>Mando imprimir a mis " + this.hijos.length + " hijos </h3> <br>";
+
 		for(var i = 0; i<this.hijos.length ; i++){
 			this.hijos[i].drawImprime();
 		}
-		document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + 	"<h3>Mis hijos han terminado</h3> <br>";
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "<h3>Mis hijos terminaron </h3><br>";
 	}
 
 	if(this.entidad != null){
 
 		this.entidad.endDrawImprime();
 	}
-	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "He terminado de imprimirme <br>";
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "<span>Me termino de imprimir </span> <br>";
 
 };
 
