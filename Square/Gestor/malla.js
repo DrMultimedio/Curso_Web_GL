@@ -1,4 +1,4 @@
-function Malla(){
+function MallaGestor(){
 	this.vertices = null;
 	this.normales = null;
 	this.texturas = null;
@@ -9,37 +9,80 @@ function Malla(){
 	this.textTriangulo = null;
 
 	this.nTriangulos = null;
+	this.nombreFich = null;
 }
 
-Malla.prototype.cargaFichero = function(fich) {
+MallaGestor.prototype.cargaFichero = function(fich, callback) {
 
-	var peticion = new XMLHttpRequest();
-	peticion.open('GET', fich);
+	this.nombreFich = fich; 
+/*	var peticion = new XMLHttpRequest();
+	peticion.open('GET', fich, async);
 	var mesh= null;
 	var vertices;
 	var indices;
 	var yo = this;
 
-	peticion.onreadystatechange = function() {
-        if (peticion.readyState == 4) {
+	peticion.onload = function() {
 
 			mesh = new OBJ.Mesh(peticion.responseText);
 			yo.vertices = mesh.vertices;
 			yo.indices = mesh.indices;
-			alert(yo.vertices);
 
-		}
 	}
 
 	peticion.send();
 	//fin de codigo adaptado
-	return peticion.responseText;
+	return peticion.responseText;*/
+
+	 // Hacemos una promesa: prometemos un contador numérico de esta promesa,
+  // empezando por 1 (después de esperar 3s)
+
+  //Codigo sacado de mozilla dev
+  var p1 = new Promise(
+    // La función resolvedora es llamada con la
+    // habilidad de resolver o rechazar la promesa
+    function(resolve, reject) {
+
+
+		var peticion = new XMLHttpRequest();
+		peticion.open('GET', fich, true);
+		var mesh= null;
+		var vertices;
+		var indices;
+
+		peticion.onload = function() {
+
+				mesh = new OBJ.Mesh(peticion.responseText);
+				malla.vertices = mesh.vertices;
+				malla.indices = mesh.indices;
+				resolve(malla);
+		}
+
+
+		peticion.send();
+		//fin de codigo adaptado
+	    }
+  );
+
+  p1.then(
+  	function(m){
+  		callback();
+  	}, 
+  	function(m){
+  		console.log("fallo");
+  	}
+
+)
+
 };
 
 
-Malla.prototype.draw = function() {
-	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "verts<br>" + this.vertices;
-	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "index<br>" + this.indices;
+MallaGestor.prototype.draw = function() {
+	while(this.indices == null){
+
+	};
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Vertices<br>" + this.vertices + "<br>";
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Indices<br>" + this.indices + "<br>";
 
 
 };
