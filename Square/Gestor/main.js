@@ -1,6 +1,6 @@
 function main () {
 	malla = new Malla();
-	malla.cargaFichero("./prueba.obj");
+	setTimeout(malla.cargaFichero("./prueba.obj"), 100000);
 
 	malla.draw();
 

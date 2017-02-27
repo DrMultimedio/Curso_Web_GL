@@ -12,27 +12,28 @@ function Malla(){
 }
 
 Malla.prototype.cargaFichero = function(fich) {
-//codigo adaptado de stackoverflow por el usuario Edward Z. Yang
 
 	var peticion = new XMLHttpRequest();
 	peticion.open('GET', fich);
 	var mesh= null;
 	var vertices;
 	var indices;
+	var yo = this;
+
 	peticion.onreadystatechange = function() {
+        if (peticion.readyState == 4) {
 
-		mesh = new OBJ.Mesh(peticion.responseText);
-		vertices = mesh.vertices;
-		indices = mesh.indices;
-		alert(vertices);
-}
+			mesh = new OBJ.Mesh(peticion.responseText);
+			yo.vertices = mesh.vertices;
+			yo.indices = mesh.indices;
+			alert(yo.vertices);
 
-	this.vertices = vertices;
-	this.indices = indices;
+		}
+	}
 
-peticion.send();
-//fin de codigo adaptado
-return peticion.responseText;
+	peticion.send();
+	//fin de codigo adaptado
+	return peticion.responseText;
 };
 
 
@@ -42,3 +43,5 @@ Malla.prototype.draw = function() {
 
 
 };
+
+

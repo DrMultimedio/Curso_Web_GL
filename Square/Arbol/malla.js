@@ -3,6 +3,7 @@ function Malla(){
 }
 
 Malla.prototype.cargarMalla = function(archivo) {
+	//archivo seria un objeto de tipo malla del gestor de archivos
 	this.malla = archivo;
 	//comprobar si el archivo ya está cargado en el gestor de archivos
 };
