@@ -2,8 +2,12 @@ function main () {
 
 	gestor = new Gestor();
 
+	gestor.getRecurso("./prueba.obj");
 
-	malla = new MallaGestor();
+	gestor.getRecurso("./prueba.obj").draw();
+
+
+/*	malla = new MallaGestor();
 	malla.cargaFichero("./prueba.obj", function(){
 		malla.draw();
 	});
@@ -12,7 +16,7 @@ function main () {
 
 	gestor.getRecurso(malla);
 	gestor.getRecurso(malla);
-	//malla.draw();
+*/	//malla.draw();
 
 /*
 	 // Hacemos una promesa: prometemos un contador numérico de esta promesa,

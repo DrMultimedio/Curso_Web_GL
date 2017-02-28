@@ -4,18 +4,18 @@ function Gestor() {
 
 Gestor.prototype.getRecurso = function(nombre) {
 
-
+	recurso = null; 
 	for(i=0;i<this.recursos.length;i++){
-		if(this.recursos[i].getNombre() != nombre){
+		if(this.recursos[i].getNombre() == nombre){
 			recurso = this.recursos[i];
 			break;
 		}
 	}
-	if(recurso == null && this.recursos.indexOf(nombre) == -1){
-		recurso = new Recurso();
+
+	if(recurso == null){
+		recurso = new MallaGestor();
 		recurso.cargarFichero(nombre);
 		this.recursos.push(recurso);
-		alert("solo deberia aparecer una vez ");
 	}
 	return recurso;
 };

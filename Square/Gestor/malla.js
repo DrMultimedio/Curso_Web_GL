@@ -11,8 +11,10 @@ function MallaGestor(){
 	this.nTriangulos = null;
 	this.nombreFich = null;
 }
-
-MallaGestor.prototype.cargaFichero = function(fich, callback) {
+MallaGestor.prototype.getNombre = function(){
+	return this.nombreFich;
+}
+MallaGestor.prototype.cargarFichero = function(fich, callback) {
 
 	this.nombreFich = fich; 
 /*	var peticion = new XMLHttpRequest();
@@ -38,6 +40,7 @@ MallaGestor.prototype.cargaFichero = function(fich, callback) {
   // empezando por 1 (después de esperar 3s)
 
   //Codigo sacado de mozilla dev
+  var malla = this;
   var p1 = new Promise(
     // La función resolvedora es llamada con la
     // habilidad de resolver o rechazar la promesa
@@ -47,19 +50,19 @@ MallaGestor.prototype.cargaFichero = function(fich, callback) {
 		var peticion = new XMLHttpRequest();
 		peticion.open('GET', fich, true);
 		var mesh= null;
-		var vertices;
-		var indices;
-
 		peticion.onload = function() {
 
 				mesh = new OBJ.Mesh(peticion.responseText);
 				malla.vertices = mesh.vertices;
 				malla.indices = mesh.indices;
+				console.log(malla.vertices);
 				resolve(malla);
 		}
 
 
 		peticion.send();
+		  		console.log("enga va");
+
 		//fin de codigo adaptado
 	    }
   );
@@ -67,7 +70,9 @@ MallaGestor.prototype.cargaFichero = function(fich, callback) {
   p1.then(
   	function(m){
   		callback();
-  	}, 
+
+  	})
+  	.catch (
   	function(m){
   		console.log("fallo");
   	}
@@ -78,9 +83,6 @@ MallaGestor.prototype.cargaFichero = function(fich, callback) {
 
 
 MallaGestor.prototype.draw = function() {
-	while(this.indices == null){
-
-	};
 	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Vertices<br>" + this.vertices + "<br>";
 	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Indices<br>" + this.indices + "<br>";
 
