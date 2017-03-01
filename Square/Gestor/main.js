@@ -2,9 +2,9 @@ function main () {
 
 	gestor = new Gestor();
 
-	gestor.getRecurso("./prueba.obj");
+	gestor.getRecurso("prueba.obj");
 
-	gestor.getRecurso("./prueba.obj").draw();
+	gestor.getRecurso("prueba.obj").draw();
 
 
 /*	malla = new MallaGestor();

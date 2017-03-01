@@ -14,71 +14,18 @@ function MallaGestor(){
 MallaGestor.prototype.getNombre = function(){
 	return this.nombreFich;
 }
-MallaGestor.prototype.cargarFichero = function(fich, callback) {
-
-	this.nombreFich = fich; 
-/*	var peticion = new XMLHttpRequest();
-	peticion.open('GET', fich, async);
-	var mesh= null;
-	var vertices;
-	var indices;
-	var yo = this;
-
-	peticion.onload = function() {
-
-			mesh = new OBJ.Mesh(peticion.responseText);
-			yo.vertices = mesh.vertices;
-			yo.indices = mesh.indices;
-
-	}
-
-	peticion.send();
-	//fin de codigo adaptado
-	return peticion.responseText;*/
-
-	 // Hacemos una promesa: prometemos un contador numérico de esta promesa,
-  // empezando por 1 (después de esperar 3s)
-
-  //Codigo sacado de mozilla dev
-  var malla = this;
-  var p1 = new Promise(
-    // La función resolvedora es llamada con la
-    // habilidad de resolver o rechazar la promesa
-    function(resolve, reject) {
-
-
+MallaGestor.prototype.cargarFichero = function(fich) { 
+		var malla = this;
 		var peticion = new XMLHttpRequest();
-		peticion.open('GET', fich, true);
+		peticion.open('GET', fich, false);
 		var mesh= null;
 		peticion.onload = function() {
-
 				mesh = new OBJ.Mesh(peticion.responseText);
 				malla.vertices = mesh.vertices;
+				malla.nombreFich = fich;
 				malla.indices = mesh.indices;
-				console.log(malla.vertices);
-				resolve(malla);
 		}
-
-
 		peticion.send();
-		  		console.log("enga va");
-
-		//fin de codigo adaptado
-	    }
-  );
-
-  p1.then(
-  	function(m){
-  		callback();
-
-  	})
-  	.catch (
-  	function(m){
-  		console.log("fallo");
-  	}
-
-)
-
 };
 
 
