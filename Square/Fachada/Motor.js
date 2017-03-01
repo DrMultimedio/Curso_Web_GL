@@ -18,6 +18,14 @@ Motor.prototype.crearNodo = function(padre, entidad) {
 	}
 	return nodo; 
 };
+Motor.prototype.agregaNodo = function(padre, entidad, hijo) {
+	//añade un hijo al padre que nos pasan y se le añade la entidad si la tuviera. Devuelve el nodo.
+	nodo = padre.addHijoCreado(hijo);
+	if(entidad != null){
+		nodo.setEntidad(entidad);
+	}
+	return nodo; 
+};
 Motor.prototype.crearTransposicion = function() {
 	//crea un nodo y le añade una entidad transformacion, de tipo transponer. Devuelve el nodo.
 	nodo = new Nodo();
