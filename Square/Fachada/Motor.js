@@ -1,6 +1,15 @@
 function Motor(){
 	this.escena = null;
 	this.gestorRecursos = null;
+	//en luces guardo las entidades luces, y en luces activas si están encendidas o apagadas (0 o 1)
+	this.luces = [];
+	this.lucesActivas = [];
+
+	//en camaras guardo las entidades camaras, y en camaras activas la camara encendida, el resto estara a 0
+	this.cams = [];
+	this.camActivas = [];
+	this.viewport = [];
+	this.viewportActivos = [];
 
 }
 Motor.prototype.crearEscena = function(padre) {
@@ -84,6 +93,38 @@ Motor.prototype.crearMalla = function(nombre) {
 	nodo.setEntidad(malla);
 	return nodo;
 };
+Motor.prototype.agregaLuz = function(l) {
+	this.luces.push(l);
+	return luces.length();
+};
+Motor.prototype.setLuzActiva = function(cam) {
+
+	this.lucesActivas.length = this.luces.length;
+	this.lucesActivas[cam] = 1;
+};
+Motor.prototype.agregaCam = function(l) {
+	this.cams.push(l);
+	return cams.length();
+};
+Motor.prototype.setCamActiva = function(cam) {
+
+	this.camsActivas.length = this.cams.length;
+	for(i=0; i< this.camsActivas.length ; i++){
+		this.camsActivas[i] = 0;
+	}
+	this.camsActivas[cam] = 1;
+};
 Motor.prototype.draw = function() {
+	//pasos para crear el motor
+	//paso 1 cargar librería gráfica
+
+	//paso2 incializar las luces
+
+	//paso 3 incializar el viewport
+
+	//paso 4 inicializar la camara
+
+	//paso 5 > DRAW
+
 	escena.draw();
 };
