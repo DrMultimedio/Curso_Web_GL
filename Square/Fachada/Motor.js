@@ -108,6 +108,7 @@ Motor.prototype.agregaCam = function(l) {
 };
 Motor.prototype.setCamActiva = function(cam) {
 
+	//guardar camara puede guardarse como un numero entero camara activa
 	this.camsActivas.length = this.cams.length;
 	for(i=0; i< this.camsActivas.length ; i++){
 		this.camsActivas[i] = 0;
@@ -116,13 +117,15 @@ Motor.prototype.setCamActiva = function(cam) {
 };
 Motor.prototype.draw = function() {
 	//pasos para crear el motor
+
 	//paso 1 cargar librería gráfica
+
+	//paso 4 inicializar la camara
+	//calcular la matriz de view
 
 	//paso2 incializar las luces
 
 	//paso 3 incializar el viewport
-
-	//paso 4 inicializar la camara
 
 	//paso 5 > DRAW
 

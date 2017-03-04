@@ -4,7 +4,7 @@ function main () {
 
 	gestor.getRecurso("prueba.obj");
 
-	gestor.getRecurso("prueba.obj").draw();
+	gestor.getRecurso("prueba.obj").drawImprime();
 
 
 /*	malla = new MallaGestor();
