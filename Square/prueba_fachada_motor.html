@@ -20,6 +20,27 @@
     <!-- Custom styles for this template -->
     <link href="cover.css" rel="stylesheet">
 
+    <script id="shader-fs" type="x-shader/x-fragment">
+        #ifdef GL_ES
+        precision highp float;
+        #endif
+        void main(void) {
+            gl_FragColor = vec4(0.2,0.5,1.0, 1.0);
+        }
+    </script>
+
+    <!-- Vertex Shader //-->
+    <script id="shader-vs" type="x-shader/x-vertex">
+      attribute vec3 aVertexPosition;
+
+      void main(void) {
+        gl_Position = vec4(aVertexPosition,1.0); 
+      }
+    </script>
+
+    <script src='utils.js'></script>
+    <script src="cargaObj.js"></script>
+    <script src="gl-matrix-min.js"></script>
     <script src="bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
     <script src="Arbol/camara.js"></script>
     <script src="Arbol/entidad.js"></script>
@@ -30,10 +51,8 @@
     <script src="Gestor/gestor.js"></script>
     <script src="Gestor/malla.js"></script>
     <script src="Gestor/recurso.js"></script>
-    <script src="Fachada/main.js"></script>
     <script src="Fachada/Motor.js"></script>
-    <script src="gl-matrix-min.js"></script>
-    <script src="cargaObj.js"></script>
+    <script src="Fachada/main.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -54,7 +73,7 @@
           <div class="inner cover" style="overflow-x: hidden">
           <h1>Resultado</h1>
           <p id="resultado"></p>
-          <canvas id="resultado" style="border: none;" width="500" height="500"></canvas>
+          <canvas id="canvasMotor" style="border: none;" width="500" height="500"></canvas>
               <a href="#"  onClick="main();" class="btn btn-lg btn-default">Probar MOTOR</a>
             </p>
           </div>

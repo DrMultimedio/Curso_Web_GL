@@ -31,17 +31,23 @@ MallaGestor.prototype.draw = function() {
 
 //codigo apoyado en el ejemplo square de WebGL Beginners Guide
 	//iniciamos GL
-    try {
-        gl = canvas.getContext("webg2");
+	console.log("Inicializamos GL");
+
+ //   try {
+        gl = canvas.getContext("webgl2");
         gl.viewportWidth = canvas.width;
         gl.viewportHeight = canvas.height;
     //inicializamos program
-    	
+		console.log("Inicializamos Program");
+		console.log();
+
     	//Inicializamos el fragment shader y el vertex shader
 		var fgShader = utils.getShader(gl, "shader-fs");
 		var vxShader = utils.getShader(gl, "shader-vs");
-
+		console.log(fgShader);
 		//guardamos el programa y le pasamos los shaders
+		console.log("guardamos el programa y le pasamos los shaders");
+
 		prg = gl.createProgram();
 		gl.attachShader(prg, vxShader);
 		gl.attachShader(prg, fgShader);
@@ -60,6 +66,7 @@ MallaGestor.prototype.draw = function() {
 
 
 	//cargamos los buffers
+		console.log("Cargamos bufferes");
 
 		//El siguiente codigo crea un buffer de vertices y los enlaza con los de la malla
 		squareVertexBuffer = gl.createBuffer();
@@ -76,33 +83,32 @@ MallaGestor.prototype.draw = function() {
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
 
 	//Render Loop
+		console.log("Render loop");
 
-		utils.requestAnimFrame(renderLoop);//preguntar que hace exactamente esta linea de codigo
+		//dibujamos la escena
+			console.log("Dibujamos");
 
-	//dibujamos la escena
-	
-		gl.clearColor(0.5, 0.5, 0.5, 1.0);
-		gl.enable(gl.DEPTH_TEST);
-	
-		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-		gl.viewport(0,0,c_width, c_height);
+			gl.clearColor(0.5, 0.5, 0.5, 1.0);
+			gl.enable(gl.DEPTH_TEST);
 		
-	    mat4.perspective(45, c_width / c_height, 0.1, 10000.0, pMatrix); //linea default
-	    //fieldOfViewYInRadians, aspect, zNear, zFar, dst
-	    mat4.identity(mvMatrix);
-	    mat4.translate(mvMatrix, [0.0, 0.0, -5]);
+			gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+	        gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+			
+	        mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+		    //fieldOfViewYInRadians, aspect, zNear, zFar, dst
+		    mat4.identity(mvMatrix);
+		    mat4.translate(mvMatrix, [0.0, 0.0, -5]);
 
-		gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
-		gl.vertexAttribPointer(prg.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
-		gl.enableVertexAttribArray(prg.vertexPosition);
+			gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
+			gl.vertexAttribPointer(prg.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+			gl.enableVertexAttribArray(prg.vertexPosition);
+			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
+			gl.drawElements(gl.TRIANGLES, this.indices.length, gl.UNSIGNED_SHORT,0);
 		
-		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
 
 
 
-
-
-
+/*
     }
     catch (e) {
     	alert("algo se ha ido de madre xd");
@@ -110,7 +116,7 @@ MallaGestor.prototype.draw = function() {
     if (!gl) {
 		document.getElementById("resultado").innerHTML = "Tu navegador no soporta WebGL o el código se me ha liado xd. So sorry ):";
     }
-
+*/
 };
 
 MallaGestor.prototype.drawImprime = function() {

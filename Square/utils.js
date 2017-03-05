@@ -47,6 +47,7 @@
 	utilsObject.prototype.getShader = function(gl, id) {
        var script = document.getElementById(id);
        if (!script) {
+       		console.log("script is null");
            return null;
        }
 
