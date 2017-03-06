@@ -3,11 +3,9 @@ function MallaGestor(){
 	this.normales = null;
 	this.texturas = null;
 	this.indices = null;
-
 	this.vertTriangulo = null;
 	this.normTriangulo = null;
 	this.textTriangulo = null;
-
 	this.nTriangulos = null;
 	this.nombreFich = null;
 }

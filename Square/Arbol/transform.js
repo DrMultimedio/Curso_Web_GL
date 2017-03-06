@@ -3,6 +3,9 @@ function Transformacion(){
 	mat4.identity(mat);
 	this.matrizTrans = mat;
 }
+Transformacion.prototype.getMatriz = function() {
+	return this.matrizTrans;
+};
 Transformacion.prototype.identidad = function() {
 
 	mat4.identity(this.matrizTrans);
