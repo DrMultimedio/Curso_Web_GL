@@ -27,7 +27,75 @@ MallaGestor.prototype.cargarFichero = function(fich) {
 		}
 		peticion.send();
 };
+
+
+MallaGestor.prototype.drawInitProgram = function() {
+	console.log("Inicializamos GL");
+	fgShader = utils.getShader(gl, "shader-fs");
+	vxShader = utils.getShader(gl, "shader-vs");
+
+	prg = gl.createProgram();
+	gl.attachShader(prg, vxShader);
+	gl.attachShader(prg, fgShader);
+	gl.linkProgram(prg);
+
+	if (!gl.getProgramParameter(prg, gl.LINK_STATUS)) {
+		alert("No se han podido inicializar los shaders");
+	}
+
+	gl.useProgram(prg);
+	prg.vertexPosition = gl.getAttribLocation(prg, "aVertexPosition");
+}
+
+MallaGestor.prototype.drawInitBuffers = function() {
+	console.log("Iniciamos bufferes");	
+
+	squareVertexBuffer = gl.createBuffer();
+	gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.vertices), gl.STATIC_DRAW);
+	gl.bindBuffer(gl.ARRAY_BUFFER, null);
+	
+	//The following code snippet creates a vertex buffer and binds the indices to it
+	squareIndexBuffer = gl.createBuffer();
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
+	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.indices), gl.STATIC_DRAW);
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+}
+
 MallaGestor.prototype.draw = function() {
+
+	console.log("Iniciamos");	
+
+	gl = utils.getGLContext('canvasMotor');
+	this.drawInitProgram();
+	this.drawInitBuffers();
+	this.initLoop();
+
+}
+MallaGestor.prototype.initLoop = function() {
+	console.log("Render loop");	
+	//utils.requestAnimFrame(this.initLoop);
+	this.drawScene();
+};
+
+MallaGestor.prototype.drawScene = function() {
+	console.log("Le dibujo");	
+		gl.clearColor(0.5, 0.5, 0.5, 1.0);
+		gl.enable(gl.DEPTH_TEST);
+	
+		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+		gl.viewport(0,0,c_width, c_height);
+		
+		gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
+		gl.vertexAttribPointer(prg.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+		gl.enableVertexAttribArray(prg.vertexPosition);
+		
+		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
+		gl.drawElements(gl.TRIANGLES, this.indices.length, gl.UNSIGNED_SHORT,0);
+
+	};
+
+MallaGestor.prototype.drawOld = function() {
 
 //codigo apoyado en el ejemplo square de WebGL Beginners Guide
 	//iniciamos GL

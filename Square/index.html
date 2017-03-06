@@ -151,7 +151,7 @@
 	    mat4.perspective(45, c_width / c_height, 0.1, 10000.0, pMatrix); //linea default
 	    //fieldOfViewYInRadians, aspect, zNear, zFar, dst
 	    mat4.identity(mvMatrix);
-	    mat4.translate(mvMatrix, [0.0, 0.0, -5]);
+	    mat4.translate(mvMatrix, [0.0, 0.0, 0]);
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
 		gl.vertexAttribPointer(prg.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
