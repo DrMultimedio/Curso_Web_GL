@@ -1,5 +1,7 @@
 MatrizView = mat4.create();
 mat4.identity(MatrizView);
+prg = null;
+gl = null;
 function Motor(){
 	this.escena = null;
 	this.gestorRecursos = null;
@@ -120,12 +122,30 @@ Motor.prototype.agregaCam = function(l) {
 Motor.prototype.setCamActiva = function(cam) {
 	camActiva=cam;
 };
+Motor.prototype.drawInitProgram = function() {
+	console.log("Inicializamos GL");
+	gl = utils.getGLContext('canvas-element-id');
+	fgShader = utils.getShader(gl, "shader-fs");
+	vxShader = utils.getShader(gl, "shader-vs");
+
+	prg = gl.createProgram();
+	gl.attachShader(prg, vxShader);
+	gl.attachShader(prg, fgShader);
+	gl.linkProgram(prg);
+
+	if (!gl.getProgramParameter(prg, gl.LINK_STATUS)) {
+		alert("No se han podido inicializar los shaders");
+	}
+
+	gl.useProgram(prg);
+	prg.vertexPosition = gl.getAttribLocation(prg, "aVertexPosition");
+}
 
 Motor.prototype.draw = function() {
 	//pasos para crear el motor
 
 	//paso 1 cargar librería gráfica
-
+	this.drawInitProgram();
 	//paso 4 inicializar la camara
 	//calcular la matriz de view
 		var camara = this.cams[camActiva];
@@ -198,6 +218,7 @@ Motor.prototype.draw = function() {
 	//paso 3 incializar el viewport
 
 	//paso 5 > DRAW
+	console.log(this.escena);
+	this.escena.draw();
 
-	//escena.draw();
 };

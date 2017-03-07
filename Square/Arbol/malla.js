@@ -4,7 +4,9 @@ function Malla(){
 
 Malla.prototype.cargarMalla = function(m) {
 	//archivo seria un objeto de tipo malla del gestor de archivos
-	this.malla = m;
+	mallagestor = new MallaGestor();
+	mallagestor.cargarFichero(m);
+	this.malla = mallagestor;
 	//comprobar si el archivo ya está cargado en el gestor de archivos
 };
 Malla.prototype.getMalla = function() {
@@ -12,10 +14,10 @@ Malla.prototype.getMalla = function() {
 };
 Malla.prototype.beginDraw = function() {
 
-	this.malla.beginDraw();
+	this.malla.draw();
 };
 Malla.prototype.endDraw = function() {
-	this.malla.endDraw();
+	//this.malla.endDraw();
 
 };
 
