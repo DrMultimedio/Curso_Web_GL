@@ -27,23 +27,7 @@ MallaGestor.prototype.cargarFichero = function(fich) {
 };
 
 
-MallaGestor.prototype.drawInitProgram = function() {
-	console.log("Inicializamos GL");
-	fgShader = utils.getShader(gl, "shader-fs");
-	vxShader = utils.getShader(gl, "shader-vs");
 
-	prg = gl.createProgram();
-	gl.attachShader(prg, vxShader);
-	gl.attachShader(prg, fgShader);
-	gl.linkProgram(prg);
-
-	if (!gl.getProgramParameter(prg, gl.LINK_STATUS)) {
-		alert("No se han podido inicializar los shaders");
-	}
-
-	gl.useProgram(prg);
-	prg.vertexPosition = gl.getAttribLocation(prg, "aVertexPosition");
-}
 
 MallaGestor.prototype.drawInitBuffers = function() {
 	console.log("Iniciamos bufferes");	
