@@ -124,7 +124,7 @@ Motor.prototype.setCamActiva = function(cam) {
 };
 Motor.prototype.drawInitProgram = function() {
 	console.log("Inicializamos GL");
-	gl = utils.getGLContext('canvas-element-id');
+	gl = utils.getGLContext('canvasMotor');
 	fgShader = utils.getShader(gl, "shader-fs");
 	vxShader = utils.getShader(gl, "shader-vs");
 
@@ -140,41 +140,40 @@ Motor.prototype.drawInitProgram = function() {
 	gl.useProgram(prg);
 	prg.vertexPosition = gl.getAttribLocation(prg, "aVertexPosition");
 }
+Motor.prototype.initViewMatrix = function() {
 
-Motor.prototype.draw = function() {
-	//pasos para crear el motor
+	console.log("init view matrix");
+	var camara = this.cams[camActiva];
+	var recorridocamara = [];
+	while(camara.getPadre()!=null){
+		camara = camara.getPadre();
+		recorridocamara.push(camara);
+	}
+	recorridocamara.pop();
+	recorridocamara.reverse();
+	var maux =  mat4.create();
+	mat4.identity(maux);
+	var matriz = mat4.create();
+	mat4.identity(matriz);
+	console.log("Voy a recorrer el array y multiplicar sus matrices");
+	for(var p=0; p<recorridocamara.length; p++){
+		console.log("Interaccion numero:");
+		console.log(p);
+		console.log(recorridocamara[p].getEntidad());
+		matriz = recorridocamara[p].getEntidad().getMatriz();
+		console.log("El valor de matriz es :");
+		console.log(matriz);
+		mat4.multiply(maux, matriz);
+		console.log("El valor de maux en este momento es :");
+		console.log(maux);
+	}
+	mat4.inverse(maux, MatrizView );
+	console.log(MatrizView);
 
-	//paso 1 cargar librería gráfica
-	this.drawInitProgram();
-	//paso 4 inicializar la camara
-	//calcular la matriz de view
-		var camara = this.cams[camActiva];
-		var recorridocamara = [];
-		while(camara.getPadre()!=null){
-			camara = camara.getPadre();
-			recorridocamara.push(camara);
-		}
-		recorridocamara.pop();
-		recorridocamara.reverse();
-		var maux =  mat4.create();
-		mat4.identity(maux);
-		var matriz = mat4.create();
-		mat4.identity(matriz);
-		console.log("Voy a recorrer el array y multiplicar sus matrices");
-		for(var p=0; p<recorridocamara.length; p++){
-			console.log("Interaccion numero:");
-			console.log(p);
-			console.log(recorridocamara[p].getEntidad());
-			matriz = recorridocamara[p].getEntidad().getMatriz();
-			console.log("El valor de matriz es :");
-			console.log(matriz);
-			mat4.multiply(maux, matriz);
-			console.log("El valor de maux en este momento es :");
-			console.log(maux);
-		}
-		mat4.inverse(maux, MatrizView );
-		console.log(MatrizView);
-	//paso2 incializar las luces
+};
+
+Motor.prototype.initLights = function() {
+
 		console.log("Recorro el array de luces activas para ver cual esta activa");
 		console.log(this.lucesActivas);
 		for(var i=0; i<this.lucesActivas.length; i++){
@@ -215,10 +214,49 @@ Motor.prototype.draw = function() {
 			}
 	}
 	console.log(this.matricesLuces);
+};
+Motor.prototype.draw = function() {
+	//pasos para crear el motor
+
+	//paso 1 cargar librería gráfica
+	this.drawInitProgram();
+	//paso 4 inicializar la camara
+	//calcular la matriz de view
+	this.initViewMatrix();
+	//paso2 incializar las luces
+	this.initLights();
 	//paso 3 incializar el viewport
 
 	//paso 5 > DRAW
 	console.log(this.escena);
-	this.escena.draw();
-
+	//mandamos el arbol a dibujar
 };
+Motor.prototype.drawScene = function() {
+/*	console.log("Dibujado de arbol")
+
+	this.escena.draw();
+	console.log("Dibujado de escena en canvas")
+
+	gl.clearColor(0.5, 0.5, 0.5, 1.0);
+	gl.enable(gl.DEPTH_TEST);
+
+	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+	gl.viewport(0,0,c_width, c_height);
+	
+    mat4.perspective(45, c_width / c_height, 0.1, 10000.0, pMatrix); //linea default
+    //fieldOfViewYInRadians, aspect, zNear, zFar, dst
+    mat4.identity(mvMatrix);
+    mat4.translate(mvMatrix, [0.0, 0.0, 0]);
+
+	gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
+	gl.vertexAttribPointer(prg.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+	gl.enableVertexAttribArray(prg.vertexPosition);
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
+	gl.drawElements(gl.TRIANGLES, 3 , gl.UNSIGNED_SHORT,0);
+
+*/};
+Motor.prototype.renderLoop = function() {
+/*	utils.requestAnimFrame(this.renderLoop);
+
+	this.drawScene();
+*/};

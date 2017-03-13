@@ -27,37 +27,23 @@ MallaGestor.prototype.cargarFichero = function(fich) {
 };
 
 
-
-
-MallaGestor.prototype.drawInitBuffers = function() {
-	console.log("Iniciamos bufferes");	
-
-	squareVertexBuffer = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.vertices), gl.STATIC_DRAW);
-	gl.bindBuffer(gl.ARRAY_BUFFER, null);
-	
-	//The following code snippet creates a vertex buffer and binds the indices to it
-	squareIndexBuffer = gl.createBuffer();
-	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
-	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.indices), gl.STATIC_DRAW);
-	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
-}
-
 MallaGestor.prototype.draw = function() {
 
-	console.log("Iniciamos");	
+	console.log("Iniciamos dibujado de MallaGestor");	
 
 	gl = utils.getGLContext('canvasMotor');
 	console.log("Iniciamos bufferes");	
 
 	//Creamos los buffers
+	console.log("Creamos bufferes");	
 	squareVertexBuffer = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.vertices), gl.STATIC_DRAW);
 	gl.bindBuffer(gl.ARRAY_BUFFER, null);
 	
-	//The following code snippet creates a vertex buffer and binds the indices to it
+	//El siguiente codigo genera un buffer y lo liga a gl
+	console.log("Ligamos buffers");	
+
 	squareIndexBuffer = gl.createBuffer();
 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
 	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.indices), gl.STATIC_DRAW);
@@ -68,22 +54,13 @@ MallaGestor.prototype.draw = function() {
 	gl.enableVertexAttribArray(prg.vertexPosition);
 	
 	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
-	gl.drawElements(gl.TRIANGLES, this.indices.length, gl.UNSIGNED_SHORT,0);
+/*	gl.drawElements(gl.TRIANGLES, this.indices.length, gl.UNSIGNED_SHORT,0);
+*/
+}
+MallaGestor.prototype.endDraw = function() {
 
 
 }
-
-/*MallaGestor.prototype.drawScene = function() {
-	console.log("Le dibujo");	
-		gl.clearColor(0.5, 0.5, 0.5, 1.0);
-		gl.enable(gl.DEPTH_TEST);
-	
-		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-		gl.viewport(0,0,c_width, c_height);
-		
-
-	};*/
-
 MallaGestor.prototype.drawImprime = function() {
 	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Vertices<br>" + this.vertices + "<br>";
 	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Indices<br>" + this.indices + "<br>";
