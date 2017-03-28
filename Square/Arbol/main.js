@@ -1,5 +1,6 @@
 function main () {
-
+	//en frames guardaremos los frames que tenemos de animación 
+	frames = 0; 
 	pila = [];
 	Matriz = mat4.create();
 	mat4.identity(Matriz);

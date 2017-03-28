@@ -8,6 +8,8 @@ function MallaGestor(){
 	this.textTriangulo = null;
 	this.nTriangulos = null;
 	this.nombreFich = null;
+	this.frames = null;
+
 }
 MallaGestor.prototype.getNombre = function(){
 	return this.nombreFich;
@@ -24,6 +26,7 @@ MallaGestor.prototype.cargarFichero = function(fich) {
 				malla.indices = mesh.indices;
 		}
 		peticion.send();
+
 };
 
 

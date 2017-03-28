@@ -6,6 +6,17 @@ function main () {
 
 	gestor.getRecurso("prueba.obj").drawImprime();
 
+	var anim = gestor.pushAnimacion('prueba.obj');
+	anim.pushMalla('bb8.obj');
+	anim.pushMalla('bb8.obj');
+	anim.pushMalla('bb8.obj');
+
+	anim.drawImprime();
+	anim.drawImprime();
+	anim.drawImprime();
+	anim.drawImprime();
+	anim.drawImprime();
+	anim.drawImprime();
 
 /*	malla = new MallaGestor();
 	malla.cargaFichero("./prueba.obj", function(){
