@@ -6,7 +6,8 @@ function Animacion(){
 }
 Animacion.prototype.pushMalla = function(mesh_frame) {
 		console.log("meto el siguiente frame de la animación " + this.frames)
-		malla = new MallaGestor(mesh_frame); 
+		malla = new MallaGestor(); 
+		malla.cargarFichero(mesh_frame)
 		this.mallas.push(malla);
 		this.frames++;
 };
@@ -20,7 +21,10 @@ Animacion.prototype.draw = function() {
 	this.frame_actual++;
 };
 Animacion.prototype.drawImprime = function() {
+	console.log('Dibujo el frame actual modulo frames')
 	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML +"La animación tiene "+ this.frames + " frames, y este es el frame "+ this.frame_actual%this.frames+ "<br>";
+	this.mallas[this.frame_actual%this.frames].drawImprime();
+	
 	this.frame_actual++;
 }
 Animacion.prototype.endDraw = function() {

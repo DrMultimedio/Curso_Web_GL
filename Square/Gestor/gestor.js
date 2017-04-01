@@ -44,12 +44,13 @@ Gestor.prototype.getAnimacion = function(nombre) {
 	return a;
 
 };
+
 Gestor.prototype.pushAnimacion = function(nombre, frame) {
 	console.log("Entro a get recurso y voy a comprobar el nombre:"+nombre);
 	a = null; 
 	console.log("Creo una nueva animacion y le añado el primer frame")
 	for(i=0;i<this.animaciones.length;i++){
-		console.log("Si que hay compruebo con este nombre:"+this.animaciones[i].getNombre());
+		console.log("Si hay compruebo con este nombre:"+this.animaciones[i].getNombre());
 		if(this.animaciones[i].getNombre() == nombre){
 			console.log("Encontrado y lo devuelvo");
 			a = this.animaciones[i];

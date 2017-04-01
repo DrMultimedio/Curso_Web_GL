@@ -6,9 +6,9 @@ function main () {
 
 	gestor.getRecurso("prueba.obj").drawImprime();
 
-	var anim = gestor.pushAnimacion('prueba.obj');
+	var anim = gestor.pushAnimacion('anim1','prueba.obj');
 	anim.pushMalla('bb8.obj');
-	anim.pushMalla('bb8.obj');
+	anim.pushMalla('Rack.3ds');
 	anim.pushMalla('bb8.obj');
 
 	anim.drawImprime();

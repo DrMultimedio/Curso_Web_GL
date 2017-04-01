@@ -19,13 +19,60 @@ MallaGestor.prototype.cargarFichero = function(fich) {
 		var peticion = new XMLHttpRequest();
 		peticion.open('GET', fich, false);
 		var mesh= null;
-		peticion.onload = function() {
-				mesh = new OBJ.Mesh(peticion.responseText);
-				malla.vertices = mesh.vertices;
-				malla.nombreFich = fich;
-				malla.indices = mesh.indices;
-		}
+		var formato = fich.split('.').pop();
+		console.log("El formato es " + formato);
+		if(formato == "obj"){
+
+			peticion.onload = function() {
+					mesh = new OBJ.Mesh(peticion.responseText);
+					malla.vertices = mesh.vertices;
+					malla.nombreFich = fich;
+					malla.indices = mesh.indices;
+			}
+
 		peticion.send();
+		}
+		else if(formato == "3ds"){
+			peticion.onload = function() {
+					mesh = new Lib3ds(document.getElementById("dbg"), true);
+					mesh.readFile(peticion.responseText);
+					malla.nombreFich = fich;
+
+					//aqui leo indices, vertices y esa vaina
+
+
+					console.log(fich);
+					console.log(mesh);
+			}
+
+			console.log(mesh);
+
+			peticion.send();
+		}
+		else{
+			console.log("Formato no reconocido");
+		}
+/*
+var req = new XMLHttpRequest();
+
+if(req.overrideMimeType) {
+  req.overrideMimeType("text/plain; charset=x-user-defined");
+}
+
+req.onreadystatechange = function() {
+
+  if(req.readyState == 4) {
+    if(req.status == 0 || req.status == 200) {
+      // Note that turning on debugging makes reading the file much slower.
+      var mesh = new Lib3ds(document.getElementById("dbg"), true);
+      mesh.readFile(req.responseText);
+      console.log(mesh);
+    }
+  }
+}
+console.log(mesh);
+req.open("GET", true);
+req.send(null);*/
 
 };
 
