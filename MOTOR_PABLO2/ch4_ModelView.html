@@ -32,6 +32,7 @@
 <script src="Gestor/gestor.js"></script>
 <script src="Gestor/mallaGestor.js"></script>
 <script src="Gestor/recurso.js"></script>
+<script src="Gestor/Animacion.js"></script>
 <script src="Fachada/Motor.js"></script>
 <script src="Fachada/main.js"></script>
 
@@ -166,6 +167,31 @@ function runWebGLApp() {
 	motor.agregaCam(camara);
 	motor.setCamActiva(0);
     // console.log("Voy a crear una malla");
+
+    var anim = new Animacion();
+    anim.pushMalla('chess.obj');
+    anim.pushMalla('chess1.obj');
+    anim.pushMalla('chess2.obj');
+    anim.pushMalla('chess4.obj');
+    anim.pushMalla('chess5.obj');
+    anim.pushMalla('chess6.obj');
+    anim.pushMalla('chess7.obj');
+    anim.pushMalla('chess8.obj');
+    anim.pushMalla('chess9.obj');
+    anim.pushMalla('chess10.obj');
+    anim.pushMalla('chess11.obj');
+    anim.pushMalla('chess12.obj');
+    anim.pushMalla('chess13.obj');
+    anim.pushMalla('chess14.obj');
+    anim.pushMalla('chess15.obj');
+    anim.pushMalla('chess16.obj');
+    anim.pushMalla('chess17.obj');
+    anim.pushMalla('chess18.obj');
+    anim.pushMalla('chess19.obj');
+    anim.pushMalla('chess20.obj');
+    anim.pushMalla('chess21.obj');
+    anim.pushMalla('chess22.obj');
+
     var luz1=motor.crearLuz();
 	motor.agregaLuz(luz1);
 	motor.setLuzActiva(0);
@@ -176,7 +202,7 @@ function runWebGLApp() {
 	motor.agregaNodo(nodo2,nodo4);
 	motor.agregaNodo(nodo3,camara);
     motor.agregaNodo(nodo4,malla2);
-	motor.agregaNodo(nodo4,malla);
+	motor.agregaNodo(nodo4,anim);
     motor.agregaNodo(nodo4,luz1);
     
     motor.draw();
