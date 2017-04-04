@@ -4,7 +4,7 @@ prg = null;
 gl = null;
 function Motor(){
 	this.escena = null;
-	this.gestorRecursos = null;
+	this.gestorRecursos = new Gestor();
 	//en luces guardo las entidades luces, y en luces activas si están encendidas o apagadas (0 o 1)
 	this.luces = [];
 	this.lucesActivas = [];
@@ -122,6 +122,19 @@ Motor.prototype.agregaCam = function(l) {
 Motor.prototype.setCamActiva = function(cam) {
 	camActiva=cam;
 };
+
+Motor.prototype.crearAnimacion = function(nombre, frame) {
+	//crea un nodo y le añade una entidad malla. Devuelve el nodo.
+	// console.log("Crear malla de motor");
+	animacion = this.gestorRecursos.pushAnimacion(nombre, frame)
+	// console.log("CREANDO MALLA EN MOTOR");
+	// console.log(malla);
+	return animacion;
+};
+
+
+
+
 Motor.prototype.drawInitProgram = function() {
 	console.log("Inicializamos GL");
 	gl = utils.getGLContext('canvasMotor');

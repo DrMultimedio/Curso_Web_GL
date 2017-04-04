@@ -1,8 +1,9 @@
 function Luz(){
-	this.emitida = null;
-	this.ambiente = null;
-	this.especular = null;
-	this.difusa = null;
+	this.emitida = [0.0,0.0,0.0,0.0];
+	this.ambiente = [0.0,0.0,0.0,0.0];
+	this.especular = [0.0,0.0,0.0,0.0];
+	this.difusa = [0.0,0.0,0.0,0.0];
+	this.posicion = [0.0,0.0,0.0,0.0];
 
 }
 Luz.prototype.setEmitida = function(emit) {
@@ -29,7 +30,12 @@ Luz.prototype.setDifusa = function(dif) {
 Luz.prototype.getDifusa = function() {
 	return this.difusa;
 };
-
+Luz.prototype.setPosicion = function(pos) {
+	this.posicion = pos;
+};
+Luz.prototype.getPosicion = function() {
+	return this.posicion;
+};
 Luz.prototype.beginDraw = function() {
 
 };

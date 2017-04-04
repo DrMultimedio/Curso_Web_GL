@@ -36,7 +36,6 @@ MallaGestor.prototype.cargarFichero = function(fich) {
 			peticion.onload = function() {
 					mesh = new Lib3ds(document.getElementById("dbg"), true);
 					mesh.readFile(peticion.responseText);
-					malla.nombreFich = fich;
 
 					//aqui leo indices, vertices y esa vaina
 
@@ -49,9 +48,29 @@ MallaGestor.prototype.cargarFichero = function(fich) {
 
 			peticion.send();
 		}
+
+		else if(formato == "json"){
+			peticion.onload = function() {
+					mesh = JSON.parse(peticion.responseText);
+					malla.nombreFich = fich;
+
+					//aqui leo indices, vertices y esa vaina
+					malla.vertices = mesh.vertices;
+					malla.nombreFich = fich;
+					malla.indices = mesh.indices;
+
+					console.log(fich);
+					console.log(mesh);
+			}
+
+			console.log(mesh);
+
+			peticion.send();
+		}
 		else{
 			console.log("Formato no reconocido");
 		}
+
 /*
 var req = new XMLHttpRequest();
 
@@ -112,6 +131,7 @@ MallaGestor.prototype.endDraw = function() {
 
 }
 MallaGestor.prototype.drawImprime = function() {
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "El nombre de la malla es " + this.nombreFich + "<br>";
 	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Vertices<br>" + this.vertices + "<br>";
 	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Indices<br>" + this.indices + "<br>";
 

@@ -4,6 +4,8 @@ function main () {
 
 	gestor.getRecurso("prueba.obj");
 
+	gestor.getRecurso("cone.json").drawImprime();
+	
 	gestor.getRecurso("prueba.obj").drawImprime();
 
 	var anim = gestor.pushAnimacion('anim1','prueba.obj');
@@ -11,9 +13,6 @@ function main () {
 	anim.pushMalla('Rack.3ds');
 	anim.pushMalla('bb8.obj');
 
-	anim.drawImprime();
-	anim.drawImprime();
-	anim.drawImprime();
 	anim.drawImprime();
 	anim.drawImprime();
 	anim.drawImprime();

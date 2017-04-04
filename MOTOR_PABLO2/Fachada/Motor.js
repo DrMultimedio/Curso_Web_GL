@@ -1,6 +1,6 @@
 function Motor(){
 	this.escena = null;
-	this.gestorRecursos = null;
+	this.gestorRecursos = new Gestor();
 	//en luces guardo las entidades luces, y en luces activas si están encendidas o apagadas (0 o 1)
 	this.luces = [];
 	this.lucesActivas = [];
@@ -90,6 +90,15 @@ Motor.prototype.crearMalla = function(nombre) {
 	nodo.setEntidad(malla);
 	return nodo;
 };
+Motor.prototype.crearAnimacion = function(nombre, frame) {
+	//crea un nodo y le añade una entidad malla. Devuelve el nodo.
+	// console.log("Crear malla de motor");
+	animacion = this.gestorRecursos.pushAnimacion(nombre, frame)
+	// console.log("CREANDO MALLA EN MOTOR");
+	// console.log(malla);
+	return animacion;
+};
+
 Motor.prototype.agregaLuz = function(l) {
 	console.log("luces antes vale:");
 	console.log(this.luces);
@@ -141,6 +150,9 @@ Motor.prototype.drawInitProgram = function() {
 					];
 				
     Program.load(attributeList, uniformList);
+	gl.uniform4fv(Program.uLightAmbient ,  [1.0,1.0,1.0,1.0]);
+	gl.uniform3fv(Program.uLightPosition, Lights.getArray('position'));
+	gl.uniform4fv(Program.uLightDiffuse,  Lights.getArray('diffuse'));
 	gl.clearColor(0.3,0.3,0.3, 1.0);
     gl.clearDepth(100.0);
     gl.enable(gl.DEPTH_TEST);
@@ -221,6 +233,7 @@ Motor.prototype.initLights = function() {
 				console.log("tranformacion numero:"+j);
 				console.log(recorrido[j].getEntidad());
 				matriz = recorrido[j].getEntidad().getMatriz();
+
 				console.log("Multiplico "+matriz+" por "+aux);
 				mat4.multiply(aux, matriz);
 				console.log("matriz vale: ");
