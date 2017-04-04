@@ -150,9 +150,11 @@ Motor.prototype.drawInitProgram = function() {
 					];
 				
     Program.load(attributeList, uniformList);
+/*
 	gl.uniform4fv(Program.uLightAmbient ,  [1.0,1.0,1.0,1.0]);
 	gl.uniform3fv(Program.uLightPosition, Lights.getArray('position'));
 	gl.uniform4fv(Program.uLightDiffuse,  Lights.getArray('diffuse'));
+*/
 	gl.clearColor(0.3,0.3,0.3, 1.0);
     gl.clearDepth(100.0);
     gl.enable(gl.DEPTH_TEST);
