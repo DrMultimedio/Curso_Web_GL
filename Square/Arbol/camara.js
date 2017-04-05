@@ -43,7 +43,16 @@ Camara.prototype.setParalela = function() {
 Camara.prototype.beginDraw = function() {
 
 };
+Camara.prototype.beginDrawImprime = function() {
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Soy una cámara y me imprimo <br>";
 
+};
+
+Camara.prototype.endDrawImprime = function() {
+//a implementar en el gestor de recursos
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Soy una cámara y termino de imprimirme <br>";
+
+};
 Camara.prototype.endDraw = function() {
 
 };

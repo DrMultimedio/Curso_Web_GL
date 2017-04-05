@@ -1,6 +1,9 @@
 function Gestor() {
   this.recursos = [];
   this.animaciones = [];
+  this.texturas = [];
+  this.materiales = [];
+
 }
 
 Gestor.prototype.getRecurso = function(nombre) {
@@ -31,7 +34,71 @@ Gestor.prototype.getRecurso = function(nombre) {
 	}
 	return recurso;
 };
+
+Gestor.prototype.getTextura = function(nombre) {
+
+	console.log("Entro a get textura y voy a comprobar el nombre:"+nombre);
+	textura = null; 
+	var aux=false;
+	console.log("Miro si hay recursos:"+this.texturas.length);
+	if(this.texturas.length!=0)
+	aux=true;
+	for(i=0;i<this.texturas.length;i++){
+		console.log("Si hay compruebo con este nombre: "+this.texturas[i].getNombre());
+		if(this.texturas[i].getNombre() == nombre){
+			console.log("Encontrado y lo devuelvo");
+			textura = this.texturas[i];
+			break;
+		}
+	}
+	if(textura == null){
+		if(!aux)
+		console.log("No hay objetos");
+		textura = new TexturaGestor();
+		console.log("Creo un textura con el nombre: "+nombre);
+		textura.cargarFichero(nombre);
+		console.log("Cargo la textura");
+		console.log("El array de recursos esta vacio:(a partir de aqui no debe salir nada)"+this.texturas);
+		this.texturas.push(textura);
+		console.log("La meto en el array de recuros y lo vuelvo a mostrar el array:"+this.texturas);
+	}
+	return textura;
+
+
+
+
+}
+Gestor.prototype.getMaterial = function(nombre) {
+	for(i=0;i<this.materiales.length;i++){
+		console.log("Si hay compruebo con este nombre: "+this.materiales[i].getNombre());
+		if(this.materiales[i].getNombre() == nombre){
+			console.log("Encontrado y lo devuelvo");
+			return this.materiales[i];
+		}
+	}
+
+};
+
+Gestor.prototype.setMaterial = function(nombre, color) {
+	material = null;
+	for(i=0;i<this.materiales.length;i++){
+		console.log("Si hay compruebo con este nombre: "+this.materiales[i].getNombre());
+		if(this.materiales[i].getNombre() == nombre){
+			console.log("Encontrado y lo devuelvo");
+			material = this.materiales[i];
+			break;
+		}
+	}
+	if(material == null){
+		material = new MaterialGestor();
+		material.setColor(color);
+		material.setNombre(nombre);
+	}
+	return material; 
+};
+
 Gestor.prototype.getAnimacion = function(nombre) {
+	//no va bien y hay que revisarlo
 	a = null; 
 	for(i=0;i<this.animaciones.length;i++){
 		console.log("Si que hay compruebo con este nombre:"+this.animaciones[i].getNombre());

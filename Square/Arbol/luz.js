@@ -1,8 +1,8 @@
 function Luz(){
-	this.emitida = null;
-	this.ambiente = null;
-	this.especular = null;
-	this.difusa = null;
+	this.emitida = [1.0, 1.0, 1.0, 1.0];
+	this.ambiente = [1.0, 1.0, 1.0, 1.0];
+	this.especular = [1.0, 1.0, 1.0, 1.0];
+	this.difusa = [1.0, 1.0, 1.0, 1.0];
 
 }
 Luz.prototype.setEmitida = function(emit) {
@@ -34,4 +34,13 @@ Luz.prototype.beginDraw = function() {
 
 };
 Luz.prototype.endDraw = function() {
+};
+
+Luz.prototype.beginDrawImprime = function() {
+	document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Soy una luz y mi difusa es "+ this.difusa + " <br>";
+
+};
+Luz.prototype.endDrawImprime = function() {
+
+		document.getElementById("resultado").innerHTML = document.getElementById("resultado").innerHTML + "Soy una luz y termino de imprimirme <br>";
 };

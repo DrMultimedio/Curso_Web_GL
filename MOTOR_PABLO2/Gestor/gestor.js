@@ -1,20 +1,21 @@
 function Gestor() {
-  this.recursos = [];
+  this.mallas = [];
   this.animaciones = [];
+  this.texturas = [];
 }
 
 Gestor.prototype.getRecurso = function(nombre) {
 	console.log("Entro a get recurso y voy a comprobar el nombre:"+nombre);
 	recurso = null; 
 	var aux=false;
-	console.log("Miro si hay recursos:"+this.recursos.length);
-	if(this.recursos.length!=0)
+	console.log("Miro si hay recursos:"+this.mallas.length);
+	if(this.mallas.length!=0)
 	aux=true;
-	for(i=0;i<this.recursos.length;i++){
-		console.log("Si que hay compruebo con este nombre:"+this.recursos[i].getNombre());
-		if(this.recursos[i].getNombre() == nombre){
+	for(i=0;i<this.mallas.length;i++){
+		console.log("Si que hay compruebo con este nombre:"+this.mallas[i].getNombre());
+		if(this.mallas[i].getNombre() == nombre){
 			console.log("Encontrado y lo devuelvo");
-			recurso = this.recursos[i];
+			recurso = this.mallas[i];
 			break;
 		}
 	}
@@ -25,12 +26,14 @@ Gestor.prototype.getRecurso = function(nombre) {
 		console.log("Creo un recurso con el nombre: "+nombre);
 		recurso.cargarFichero(nombre);
 		console.log("Cargo la malla");
-		console.log("El array de recursos esta vacio:(a partir de aqui no debe salir nada)"+this.recursos);
-		this.recursos.push(recurso);
-		console.log("La meto en el array de recuros y lo vuelvo a mostrar el array:"+this.recursos);
+		console.log("El array de recursos esta vacio:(a partir de aqui no debe salir nada)"+this.mallas);
+		this.mallas.push(recurso);
+		console.log("La meto en el array de recuros y lo vuelvo a mostrar el array:"+this.mallas);
 	}
 	return recurso;
 };
+
+
 Gestor.prototype.getAnimacion = function(nombre) {
 	a = null; 
 	for(i=0;i<this.animaciones.length;i++){

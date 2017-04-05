@@ -18,6 +18,10 @@ function main () {
 	trans3.trasladar(-4,-4,-5);
 	trans4.rotar(75,2,2,1);
 
+	cam = new Camara();
+	luz = new Luz();
+	anim = new AnimacionArbol();
+	anim.setFrame("a", "b");
 	//Objetivo
 	// Padre -> nodTrans1 -> NodTrans2 -> Malla
 	// 					  -> NodTrans3 -> Malla
@@ -33,7 +37,10 @@ function main () {
 
 	nodTrans4 = nodPadre.addHijo();
 	nodTrans4.setEntidad(trans1);
-	nodTrans4.addHijo().setEntidad(malla1);
+	nodTrans4.addHijo().setEntidad(cam);
+	nodPadre.addHijo().setEntidad(luz);
+	nodPadre.addHijo().setEntidad(anim);
+
 	nodPadre.drawImprime();
 
 }

@@ -8,10 +8,15 @@ function main () {
 	
 	gestor.getRecurso("prueba.obj").drawImprime();
 
+	gestor.getTextura("prueba.jpg").drawImprime();
+	gestor.getTextura("prueba.png").drawImprime();
+	gestor.getTextura("prueba.jpg").drawImprime();
+
+	gestor.setMaterial("rojo", [1.0, 0.0, 0.0, 1.0]).drawImprime();
+
 	var anim = gestor.pushAnimacion('anim1','prueba.obj');
 	anim.pushMalla('bb8.obj');
-	anim.pushMalla('Rack.3ds');
-	anim.pushMalla('bb8.obj');
+	anim.pushMalla('cone.json');
 
 	anim.drawImprime();
 	anim.drawImprime();

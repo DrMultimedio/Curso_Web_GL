@@ -19,54 +19,111 @@ MallaGestor.prototype.cargarFichero = function(fich) {
 		var alias= null;
 		var malla = this;
 		peticion.open('GET', fich, false);
-		peticion.onload = function() {
-				object = new OBJ.Mesh(peticion.responseText);
-				malla.alias = (alias==null)?'none':alias;
-                malla.remote = true;
-				malla.vertices=object.vertices;
-				malla.indices=object.indices;
-				malla.colors=object.colors;
-				malla.diffuse = object.diffuse;
-				malla.wireframe = object.wireframe;
-				malla.perVertexColor = object.perVertexColor;
-				if (object.perVertexColor   === undefined)    {   malla.perVertexColor   = false;            }
-				if (object.wireframe        === undefined)    {   malla.wireframe        = false;            }
-				if (object.diffuse          === undefined)    {   malla.diffuse          = [1.0,1.0,1.0,1.0];}
-			
-				var vertexBufferObject = gl.createBuffer();
-				gl.bindBuffer(gl.ARRAY_BUFFER, vertexBufferObject);
-				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(object.vertices), gl.STATIC_DRAW);
-				
-				var normalBufferObject = gl.createBuffer();
-				gl.bindBuffer(gl.ARRAY_BUFFER, normalBufferObject);
-				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(Utils.calculateNormals(object.vertices, object.indices)), gl.STATIC_DRAW);
-			
-				var colorBufferObject;
-			
-			if (object.perVertexColor){
-					colorBufferObject = gl.createBuffer();
-					gl.bindBuffer(gl.ARRAY_BUFFER, colorBufferObject);
-					gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(object.colors), gl.STATIC_DRAW);
-					object.cbo = colorBufferObject;
-				}
-			
-				var indexBufferObject = gl.createBuffer();
-				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBufferObject);
-				gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(object.indices), gl.STATIC_DRAW);
-				console.log(object);
-				malla.vbo = vertexBufferObject;
-				malla.ibo = indexBufferObject;
-				malla.nbo = normalBufferObject;
-				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
-				gl.bindBuffer(gl.ARRAY_BUFFER,null);
+		var formato = fich.split('.').pop();
+		console.log("El formato es " + formato);
 
-				console.log(malla);
-				if (malla.remote){
-					console.info(malla.alias + ' has been added to the scene [Remote]');
-				}
-				else {
-					console.info(malla.alias + ' has been added to the scene [Local]');
-				}
+
+		if(formato = "obj"){
+		peticion.onload = function() {
+					object = new OBJ.Mesh(peticion.responseText);
+					malla.alias = (alias==null)?'none':alias;
+	                malla.remote = true;
+					malla.vertices=object.vertices;
+					malla.indices=object.indices;
+					malla.colors=object.colors;
+					malla.diffuse = object.diffuse;
+					malla.wireframe = object.wireframe;
+					malla.perVertexColor = object.perVertexColor;
+					if (object.perVertexColor   === undefined)    {   malla.perVertexColor   = false;            }
+					if (object.wireframe        === undefined)    {   malla.wireframe        = false;            }
+					if (object.diffuse          === undefined)    {   malla.diffuse          = [1.0,1.0,1.0,1.0];}
+				
+					var vertexBufferObject = gl.createBuffer();
+					gl.bindBuffer(gl.ARRAY_BUFFER, vertexBufferObject);
+					gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(object.vertices), gl.STATIC_DRAW);
+					
+					var normalBufferObject = gl.createBuffer();
+					gl.bindBuffer(gl.ARRAY_BUFFER, normalBufferObject);
+					gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(Utils.calculateNormals(object.vertices, object.indices)), gl.STATIC_DRAW);
+				
+					var colorBufferObject;
+				
+				if (object.perVertexColor){
+						colorBufferObject = gl.createBuffer();
+						gl.bindBuffer(gl.ARRAY_BUFFER, colorBufferObject);
+						gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(object.colors), gl.STATIC_DRAW);
+						object.cbo = colorBufferObject;
+					}
+				
+					var indexBufferObject = gl.createBuffer();
+					gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBufferObject);
+					gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(object.indices), gl.STATIC_DRAW);
+					console.log(object);
+					malla.vbo = vertexBufferObject;
+					malla.ibo = indexBufferObject;
+					malla.nbo = normalBufferObject;
+					gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+					gl.bindBuffer(gl.ARRAY_BUFFER,null);
+
+					console.log(malla);
+					if (malla.remote){
+						console.info(malla.alias + ' has been added to the scene [Remote]');
+					}
+					else {
+						console.info(malla.alias + ' has been added to the scene [Local]');
+					}
+			}
+		}
+		else if(formato = "json"){
+		peticion.onload = function() {
+					object = new JSON.parse(peticion.responseText);
+					malla.alias = (alias==null)?'none':alias;
+	                malla.remote = true;
+					malla.vertices=object.vertices;
+					malla.indices=object.indices;
+					malla.colors=object.colors;
+					malla.diffuse = object.diffuse;
+					malla.wireframe = object.wireframe;
+					malla.perVertexColor = object.perVertexColor;
+					if (object.perVertexColor   === undefined)    {   malla.perVertexColor   = false;            }
+					if (object.wireframe        === undefined)    {   malla.wireframe        = false;            }
+					if (object.diffuse          === undefined)    {   malla.diffuse          = [1.0,1.0,1.0,1.0];}
+				
+					var vertexBufferObject = gl.createBuffer();
+					gl.bindBuffer(gl.ARRAY_BUFFER, vertexBufferObject);
+					gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(object.vertices), gl.STATIC_DRAW);
+					
+					var normalBufferObject = gl.createBuffer();
+					gl.bindBuffer(gl.ARRAY_BUFFER, normalBufferObject);
+					gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(Utils.calculateNormals(object.vertices, object.indices)), gl.STATIC_DRAW);
+				
+					var colorBufferObject;
+				
+				if (object.perVertexColor){
+						colorBufferObject = gl.createBuffer();
+						gl.bindBuffer(gl.ARRAY_BUFFER, colorBufferObject);
+						gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(object.colors), gl.STATIC_DRAW);
+						object.cbo = colorBufferObject;
+					}
+				
+					var indexBufferObject = gl.createBuffer();
+					gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBufferObject);
+					gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(object.indices), gl.STATIC_DRAW);
+					console.log(object);
+					malla.vbo = vertexBufferObject;
+					malla.ibo = indexBufferObject;
+					malla.nbo = normalBufferObject;
+					gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+					gl.bindBuffer(gl.ARRAY_BUFFER,null);
+
+					console.log(malla);
+					if (malla.remote){
+						console.info(malla.alias + ' has been added to the scene [Remote]');
+					}
+					else {
+						console.info(malla.alias + ' has been added to the scene [Local]');
+					}
+			}
 		}
 		peticion.send();
 }
