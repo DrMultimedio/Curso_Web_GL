@@ -169,6 +169,11 @@ function runWebGLApp() {
     // console.log("Voy a crear una malla");
 
     var anim = new Animacion();
+    for(i=1; i<250 ; i++){
+        if(i<10) anim.pushMalla('models/anim/anim_00000'+i +'.obj');
+        else if(i<100) anim.pushMalla('models/anim/anim_0000'+i +'.obj');
+        else anim.pushMalla('models/anim/anim_000'+i +'.obj');
+    }
     anim.pushMalla('chess.obj');
     anim.pushMalla('chess1.obj');
     anim.pushMalla('chess2.obj');
@@ -201,7 +206,7 @@ function runWebGLApp() {
     motor.agregaNodo(nodo1,nodo3);
 	motor.agregaNodo(nodo2,nodo4);
 	motor.agregaNodo(nodo3,camara);
-    motor.agregaNodo(nodo4,malla2);
+    //motor.agregaNodo(nodo4,malla2);
 	motor.agregaNodo(nodo4,anim);
     motor.agregaNodo(nodo4,luz1);
     
