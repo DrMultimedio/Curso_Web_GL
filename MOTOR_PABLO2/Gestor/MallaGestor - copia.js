@@ -87,6 +87,8 @@ MallaGestor.prototype.draw = function() {
 			object.diffuse = [1.0,0.0,0.0,0.0];
 			gl.uniform1i(Program.uLightSource,true);
 
+            transforms.setMatrixUniforms();
+            transforms.pop();
 
 /*
             mat4.translate(transforms.mvMatrix,Lights.get(i).position);

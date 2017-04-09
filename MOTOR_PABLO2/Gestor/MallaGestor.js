@@ -136,6 +136,12 @@ MallaGestor.prototype.draw = function() {
         updateTransforms();   
         setMatrixUniforms(); 
         
+/*			mat4.translate(mvMatrix,0.0,0.0,0.0);
+			object.diffuse = [1.0,0.0,0.0,0.0];
+			gl.uniform1i(Program.uLightSource,true);
+
+*/
+        
         gl.uniform1i(prg.uUpdateLight,updateLightPosition);  
 		gl.uniform1i(prg.uUpdateLight2,updateLightPosition2);            
             

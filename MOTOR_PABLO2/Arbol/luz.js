@@ -3,7 +3,7 @@ function Luz(){
 	this.ambiente = [0.0,0.0,0.0,0.0];
 	this.especular = [0.0,0.0,0.0,0.0];
 	this.difusa = [0.0,0.0,0.0,0.0];
-	this.posicion = [0.0,0.0,0.0,0.0];
+	this.posicion = [0.0,0.0,0.0];
 
 }
 Luz.prototype.setEmitida = function(emit) {
