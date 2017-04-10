@@ -105,7 +105,7 @@ Motor.prototype.agregaLuz = function(l) {
 	console.log("Inserto la luz:");
 	console.log(l);
 	this.luces.push(l);
-	this.lucesActivas.push(0);
+	this.lucesActivas.push(1); //por defecto encendida
 	this.matricesLuces.push(null);
 	console.log("luces despues vale:");
 	console.log(this.luces);
@@ -134,11 +134,13 @@ Motor.prototype.getLucesActivasPos = function() {
 	array = [];
 	console.log(this.lucesActivas);
 	console.log(this.luces);
-	console.log(this.luces[this.lucesActivas[1]]);
 	for(i=0; i<this.lucesActivas.length; i++){
-		for(j=0 ; j<3; j++){
-			// i] - 1 porque luces empieza en 1 
-			array.push(this.luces[this.lucesActivas[i]].getEntidad().getPosicion()[j]);
+		if(this.lucesActivas[i] == 1)
+		{
+			for(j=0 ; j<3; j++){
+				// i] - 1 porque luces empieza en 1 
+				array.push(this.luces[i].getEntidad().getPosicion()[j]);
+			}
 		}
 	}
 	console.log(array);
@@ -149,10 +151,12 @@ Motor.prototype.getLucesActivasDif = function() {
 	console.log(this.lucesActivas);
 	console.log(this.luces);
 	for(i=0; i<this.lucesActivas.length; i++){
-		for(j=0 ; j<4; j++){
-			// i] - 1 porque luces empieza en 1 
-
-			array.push(this.luces[this.lucesActivas[i] ].getEntidad().getDifusa()[j]);
+		if(this.lucesActivas[i] == 1)
+		{
+			for(j=0 ; j<4; j++){
+				// i] - 1 porque luces empieza en 1 
+				array.push(this.luces[i].getEntidad().getDifusa()[j]);
+			}
 		}
 	}
 	console.log(array);

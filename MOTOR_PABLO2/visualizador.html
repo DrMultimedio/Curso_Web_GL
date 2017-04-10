@@ -198,15 +198,21 @@ function runWebGLApp() {
 
     var luz1=motor.crearLuz();
     var luz2=motor.crearLuz();
+    var luz3=motor.crearLuz();
+
     luz1.getEntidad().setPosicion([-20.0, -10.0, -5.0]);
-    luz1.getEntidad().setDifusa([1.0, 0.0, 0.0, 0.0]);
+    luz1.getEntidad().setDifusa([0.0, 0.0, 0.0, 0.0]);
     luz2.getEntidad().setPosicion([20.0, 10.0, 5.0]);
 
     luz2.getEntidad().setDifusa([0.0, 0.0, 1.0, 0.0]);
 
+    luz3.getEntidad().setPosicion([20.0, -15.0, 5.0]);
+    luz3.getEntidad().setDifusa([0.25, 1.0, 0.5, 0.0]);
+
 
 	motor.agregaLuz(luz1);
     motor.agregaLuz(luz2);
+    motor.agregaLuz(luz3);
 
 	motor.setLuzActiva(0);
     var malla2=motor.crearMalla("bb8.obj");
@@ -217,7 +223,7 @@ function runWebGLApp() {
 	motor.agregaNodo(nodo3,camara);
     //motor.agregaNodo(nodo4,malla2);
 	motor.agregaNodo(nodo4,anim);
-    motor.agregaNodo(nodo4,luz1);
+    //motor.agregaNodo(nodo4,luz1);
     
     motor.draw();
 }
