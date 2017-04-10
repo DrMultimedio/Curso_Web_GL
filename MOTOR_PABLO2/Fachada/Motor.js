@@ -130,8 +130,37 @@ Motor.prototype.agregaCam = function(l) {
 Motor.prototype.setCamActiva = function(cam) {
 	camActiva=cam;
 };
+Motor.prototype.getLucesActivasPos = function() {
+	array = [];
+	console.log(this.lucesActivas);
+	console.log(this.luces);
+	console.log(this.luces[this.lucesActivas[1]]);
+	for(i=0; i<this.lucesActivas.length; i++){
+		for(j=0 ; j<3; j++){
+			// i] - 1 porque luces empieza en 1 
+			array.push(this.luces[this.lucesActivas[i]].getEntidad().getPosicion()[j]);
+		}
+	}
+	console.log(array);
+	return array; 
+};
+Motor.prototype.getLucesActivasDif = function() {
+	array = [];
+	console.log(this.lucesActivas);
+	console.log(this.luces);
+	for(i=0; i<this.lucesActivas.length; i++){
+		for(j=0 ; j<4; j++){
+			// i] - 1 porque luces empieza en 1 
+
+			array.push(this.luces[this.lucesActivas[i] ].getEntidad().getDifusa()[j]);
+		}
+	}
+	console.log(array);
+	return array; 
+};
 Motor.prototype.drawInitProgram = function() {
     gl = Utils.getGLContext("canvas-element-id");
+
 	var attributeList = ["aVertexPosition",
 					"aVertexNormal",
 					"aVertexColor"];
@@ -148,12 +177,24 @@ Motor.prototype.drawInitProgram = function() {
 					"uLightSource",
 					"uCutOff"
 					];
-				
+
+	console.log("Luces" +this.getLucesActivasPos());	
+
     Program.load(attributeList, uniformList);
     console.log(this.luces);
+
 	gl.uniform4fv(Program.uLightAmbient ,  [0.0,0.0,1.0,1.0]);
-	gl.uniform3fv(Program.uLightPosition, this.luces[0].getEntidad().getPosicion());
+
+	console.log(this.getLucesActivasPos());
+	console.log(this.getLucesActivasDif());
+
+	gl.uniform3fv(Program.uLightPosition, this.getLucesActivasPos());
+	gl.uniform4fv(Program.uLightDiffuse,  this.getLucesActivasDif());
+
+/*	gl.uniform3fv(Program.uLightPosition, this.luces[0].getEntidad().getPosicion());
 	gl.uniform4fv(Program.uLightDiffuse,  this.luces[0].getEntidad().getDifusa());
+*/	
+	gl.uniform1f(Program.uCutOff, 0.4);	
 
 	gl.clearColor(0.3,0.3,0.3, 1.0);
     gl.clearDepth(100.0);

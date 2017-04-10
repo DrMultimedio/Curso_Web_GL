@@ -96,6 +96,8 @@ var Program = {
 	setAttributeLocations: function (attrList){
 		
 		for(var i=0, max = attrList.length; i <max; i+=1){
+
+            console.log(attrList[i]);
 			this[attrList[i]] = gl.getAttribLocation(prg, attrList[i]);
 		}
 
@@ -104,6 +106,9 @@ var Program = {
 	setUniformLocations: function (uniformList){
 		
 		for(var i=0, max = uniformList.length; i < max; i +=1){
+
+            console.log(uniformList[i]);
+
 			this[uniformList[i]] = gl.getUniformLocation(prg, uniformList[i]);
 		}
 	}

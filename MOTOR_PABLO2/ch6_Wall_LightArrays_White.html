@@ -194,8 +194,9 @@ function configure(){
 	gl.uniform4fv(Program.uLightAmbient ,  [1.0,1.0,1.0,1.0]);
 	gl.uniform3fv(Program.uLightPosition, Lights.getArray('position'));
 	gl.uniform4fv(Program.uLightDiffuse,  Lights.getArray('diffuse'));
+	console.log(Lights.getArray('diffuse'));
+	
 	gl.uniform1f(Program.uCutOff, 0.4);
-
 }
 
 
@@ -210,8 +211,8 @@ function load(){
     Scene.loadObject('models/geometry/wall.json','wall');
 	Scene.loadObject('models/geometry/smallsph.json','light1');
 	Scene.loadObject('models/geometry/smallsph.json','light2');
-	Scene.loadObject('models/geometry/smallsph.json','light3');
-	Scene.loadObject('models/geometry/smallsph.json','light4');
+/*	Scene.loadObject('models/geometry/smallsph.json','light3');
+*/	Scene.loadObject('models/geometry/smallsph.json','light4');
 }
 
 
@@ -249,12 +250,12 @@ function draw() {
 				gl.uniform1i(Program.uLightSource,true);
 			}
 			
-			if (object.alias == 'light3'){
+/*			if (object.alias == 'light3'){
 				mat4.translate(transforms.mvMatrix,Lights.get(2).position);
 				object.diffuse = Lights.get(2).diffuse;
 				gl.uniform1i(Program.uLightSource,true);
 			}
-			
+*/			
 			if (object.alias == 'light4'){
 				mat4.translate(transforms.mvMatrix,Lights.get('white').position);
 				object.diffuse = Lights.get('white').diffuse;

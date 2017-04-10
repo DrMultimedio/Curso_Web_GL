@@ -16,7 +16,7 @@ MallaGestor.prototype.getNombre = function(){
 }
 MallaGestor.prototype.cargarFichero = function(fich) { 
 		var peticion = new XMLHttpRequest();
-		var alias= null;
+		var alias= "alias";
 		var malla = this;
 		peticion.open('GET', fich, false);
 		var formato = fich.split('.').pop();
@@ -133,17 +133,17 @@ MallaGestor.prototype.draw = function() {
 	var object = this;
 	console.log(object);
 	gl.viewport(0, 0, c_width, c_height);
+
         updateTransforms();   
         setMatrixUniforms(); 
-        
-/*			mat4.translate(mvMatrix,0.0,0.0,0.0);
-			object.diffuse = [1.0,0.0,0.0,0.0];
-			gl.uniform1i(Program.uLightSource,true);
+/*        gl.uniform3fv(Program.uLightPosition, [0, 7, 3, 2.5, 3, 3, -2.5, 3, 3, 0, 10, 2]);
+*///luces
+			//mat4.translate(mvMatrix,0.0,0.0,0.0); 
+			//fin luces
 
-*/
         
-        gl.uniform1i(prg.uUpdateLight,updateLightPosition);  
-		gl.uniform1i(prg.uUpdateLight2,updateLightPosition2);            
+	        gl.uniform1i(prg.uUpdateLight,updateLightPosition);  
+			gl.uniform1i(prg.uUpdateLight2,updateLightPosition2);            
             
             //Setting uniforms
             gl.uniform4fv(prg.uMaterialDiffuse, object.diffuse);
@@ -181,6 +181,7 @@ MallaGestor.prototype.draw = function() {
             }
             gl.bindBuffer(gl.ARRAY_BUFFER, null);
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+    
 }
 MallaGestor.prototype.endDraw = function() {
 

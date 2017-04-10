@@ -109,8 +109,17 @@ var Program = {
      gl.uniform3fv(prg.uLightPosition,     auux);
      gl.uniform4fv(prg.uLightAmbient,      [0.20,0.20,0.20,1.0]);
      gl.uniform4fv(prg.uLightDiffuse,      [1.0,1.0,1.0,1.0]); */
-     gl.uniform3fv(prg.uLightPosition,     [LuzMatrix[12],LuzMatrix[13],LuzMatrix[14]]);
+/*     gl.uniform3fv(prg.uLightPosition,     [LuzMatrix[12],LuzMatrix[13],LuzMatrix[14], 1.0 ,1.0  ,1.0 ]);
+*/     
+     console.log(LuzMatrix);
      gl.uniform4fv(prg.uLightAmbient,      [0.20,0.20,0.20,1.0]);
-     gl.uniform4fv(prg.uLightDiffuse,      [1.0,1.0,1.0,1.0]);
+/*     gl.uniform4fv(prg.uLightDiffuse,      [0.0,1.0,1.0,1.0, 1.0,0.0,1.0,1.0]);
+*/    
+     gl.uniform3fv(prg.uLightPosition, motor.getLucesActivasPos());
+     gl.uniform4fv(prg.uLightDiffuse,  motor.getLucesActivasDif());
+
+    console.log(motor.getLucesActivasDif());
+    console.log(motor.getLucesActivasPos());
+
     }
 };
