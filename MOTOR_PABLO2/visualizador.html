@@ -168,33 +168,12 @@ function runWebGLApp() {
     // console.log("Voy a crear una malla");
 
     var anim = new Animacion();
-    for(i=1; i<30 ; i++){
-        if(i<10) anim.pushMalla('models/anim/anim_00000'+i +'.obj');
-        else if(i<100) anim.pushMalla('models/anim/anim_0000'+i +'.obj');
-        else anim.pushMalla('models/anim/anim_000'+i +'.obj');
+    for(i=1; i<42 ; i++){
+        if(i<10) anim.pushMalla('models/anim2/mac_00000'+i +'.obj');
+        else if(i<100) anim.pushMalla('models/anim2/mac_0000'+i +'.obj');
+        else anim.pushMalla('models/anim2/mac_000'+i +'.obj');
     }
-    anim.pushMalla('chess.obj');
-    anim.pushMalla('chess1.obj');
-    anim.pushMalla('chess2.obj');
-    anim.pushMalla('chess4.obj');
-    anim.pushMalla('chess5.obj');
-    anim.pushMalla('chess6.obj');
-    anim.pushMalla('chess7.obj');
-    anim.pushMalla('chess8.obj');
-    anim.pushMalla('chess9.obj');
-    anim.pushMalla('chess10.obj');
-    anim.pushMalla('chess11.obj');
-    anim.pushMalla('chess12.obj');
-    anim.pushMalla('chess13.obj');
-    anim.pushMalla('chess14.obj');
-    anim.pushMalla('chess15.obj');
-    anim.pushMalla('chess16.obj');
-    anim.pushMalla('chess17.obj');
-    anim.pushMalla('chess18.obj');
-    anim.pushMalla('chess19.obj');
-    anim.pushMalla('chess20.obj');
-    anim.pushMalla('chess21.obj');
-    anim.pushMalla('chess22.obj');
+
 
     var luz1=motor.crearLuz();
     var luz2=motor.crearLuz();
@@ -204,10 +183,10 @@ function runWebGLApp() {
     luz1.getEntidad().setDifusa([0.0, 0.0, 0.0, 0.0]);
     luz2.getEntidad().setPosicion([20.0, 10.0, 5.0]);
 
-    luz2.getEntidad().setDifusa([0.0, 0.0, 1.0, 0.0]);
+    luz2.getEntidad().setDifusa([0.0, 0.3, 0.3, 0.0]);
 
     luz3.getEntidad().setPosicion([20.0, -15.0, 5.0]);
-    luz3.getEntidad().setDifusa([0.25, 1.0, 0.5, 0.0]);
+    luz3.getEntidad().setDifusa([0.3, 0.3, 0.3, 0.0]);
 
 
 	motor.agregaLuz(luz1);
