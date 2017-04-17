@@ -165,6 +165,9 @@ Motor.prototype.getLucesActivasDif = function() {
 Motor.prototype.drawInitProgram = function() {
     gl = Utils.getGLContext("canvas-element-id");
 
+	var useVertexColors = false;
+	var texture = null;
+
 	var attributeList = ["aVertexPosition",
 					"aVertexNormal",
 					"aVertexColor"];
@@ -199,6 +202,7 @@ Motor.prototype.drawInitProgram = function() {
 	gl.uniform4fv(Program.uLightDiffuse,  this.luces[0].getEntidad().getDifusa());
 */	
 	gl.uniform1f(Program.uCutOff, 0.4);	
+
 
 	gl.clearColor(0.3,0.3,0.3, 1.0);
     gl.clearDepth(100.0);
