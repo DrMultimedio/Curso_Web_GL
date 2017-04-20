@@ -46,7 +46,7 @@ attribute vec3 aVertexNormal;
 attribute vec4 aVertexColor;
 
 //Incluimos un vector de dos elementos para las coordenadas de texturas
-attribute vec2 aVertexTextureCoords;
+attribute vec2 aTextureCoord;
 
 uniform mat4 uMVMatrix;
 uniform mat4 uPMatrix;
@@ -69,7 +69,7 @@ void main(void) {
  //Transformed vertex position
  vec4 vertex = uMVMatrix * vec4(aVertexPosition, 1.0);
 
- vTextureCoord = aVertexTextureCoords;
+ vTextureCoord = aTextureCoord;
 
  //Transformed normal position
  vNormal = vec3(uNMatrix * vec4(aVertexNormal, 1.0));
@@ -137,7 +137,7 @@ void main(void)
         //Final color
         finalColor  += Ia;
         finalColor.a = 1.0;             //Add ambient component: one for all                    
-        gl_FragColor = finalColor + texture2D(uSampler, vTextureCoord);      //The alpha value in this example will be 1.0
+        gl_FragColor = finalColor + texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));     //The alpha value in this example will be 1.0
   }
 
 }
@@ -184,7 +184,7 @@ function runWebGLApp() {
 /*    var anim = new Animacion();
 */
     var tex1 = new Textura();
-    tex1.setImagen("textura.jpg");
+    tex1.setImagen("baldios.jpg");
     console.log(tex1);
 
 /*
@@ -216,7 +216,7 @@ function runWebGLApp() {
     motor.agregaLuz(luz3);
 */
     motor.setLuzActiva(0);
-    var malla2=motor.crearMalla("bb8.obj");
+    var malla2=motor.crearMalla("objtex2.obj");
     var malla=motor.crearMalla("chess.obj");
     // console.log("Ya la he creado");
     motor.agregaNodo(nodo1,nodo3);
