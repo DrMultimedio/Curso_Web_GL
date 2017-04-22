@@ -170,7 +170,8 @@ Motor.prototype.drawInitProgram = function() {
 
 	var attributeList = ["aVertexPosition",
 					"aVertexNormal",
-					"aVertexColor"];
+					"aVertexColor",
+					"aVertexTextureCoords"];
 
 	var uniformList = [	"uPMatrix", 
 					"uMVMatrix", 
@@ -181,8 +182,14 @@ Motor.prototype.drawInitProgram = function() {
 					"uLightDiffuse",
 					"uLightPosition",
 					"uWireframe",
+					"uAlpha",
 					"uLightSource",
-					"uCutOff"
+					"uUseVertexColor",
+					"uUseLambert",
+					"uCutOff",
+					"uSampler",
+
+
 					];
 
 	console.log("Luces" +this.getLucesActivasPos());	
@@ -201,6 +208,15 @@ Motor.prototype.drawInitProgram = function() {
 /*	gl.uniform3fv(Program.uLightPosition, this.luces[0].getEntidad().getPosicion());
 	gl.uniform4fv(Program.uLightDiffuse,  this.luces[0].getEntidad().getDifusa());
 */	
+
+
+	//texturas
+	gl.uniform1f(Program.uAlpha, 1.0);
+	gl.uniform1i(Program.uUseVertexColor, useVertexColors);
+	gl.uniform1i(Program.uUseLambert, true);
+
+
+
 	gl.uniform1f(Program.uCutOff, 0.4);	
 
 
