@@ -33,7 +33,16 @@ Transformacion.prototype.rotar = function(angulo, x,y,z) {
 	mat4.rotate(this.matrizTrans, angulo,[x, y, z]);
 	
 };
+Transformacion.prototype.rotarY = function(elevation) {
 
+    mat4.rotateX(this.matrizTrans, elevation * Math.PI/180);
+
+};
+Transformacion.prototype.rotarX = function(azimuth) {
+
+    mat4.rotateY(this.matrizTrans, azimuth * Math.PI/180);
+	
+};
 Transformacion.prototype.escalar = function(x,y,z) {
 
 	mat4.scale(this.matrizTrans, [x, y, z]);

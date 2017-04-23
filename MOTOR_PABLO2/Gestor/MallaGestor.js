@@ -179,7 +179,7 @@ MallaGestor.prototype.draw = function() {
 */				gl.enableVertexAttribArray(Program.aVertexTextureCoords);
 				gl.bindBuffer(gl.ARRAY_BUFFER, object.tbo);
 				console.log(Program.aVertexTextureCoords);
-				gl.vertexAttribPointer(Program.aVertexTextureCoords, 2, gl.FLOAT, false, 0, 0);
+				//gl.vertexAttribPointer(Program.aVertexTextureCoords, 2, gl.FLOAT, false, 0, 0);
 	
 				gl.activeTexture(gl.TEXTURE0);
 				console.log(this.textura.textura);

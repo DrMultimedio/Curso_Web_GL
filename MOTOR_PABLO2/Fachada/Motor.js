@@ -188,8 +188,6 @@ Motor.prototype.drawInitProgram = function() {
 					"uUseLambert",
 					"uCutOff",
 					"uSampler",
-
-
 					];
 
 	console.log("Luces" +this.getLucesActivasPos());	
@@ -323,7 +321,6 @@ Motor.prototype.draw = function() {
 	//pasos para crear el motor
 	console.log("entro a init light");
 	this.initLights();
-	console.log("SAlgo de init gight");
 	//paso 1 cargar librería gráfica
 	this.drawInitProgram();
 	//paso 4 inicializar la camara
@@ -335,11 +332,12 @@ Motor.prototype.draw = function() {
 	//paso 3 incializar el viewport
 	//paso 5 > DRAW
 	var aux=this.escena;
+	var self = this;
 	this.drawSceneHook  = function(){
         aux.draw();
+        self.initViewMatrix();
  	}
 	WEBGLAPP_RENDER = this.drawSceneHook;
-   
 	renderLoop();
 	//mandamos el arbol a dibujar
 };
