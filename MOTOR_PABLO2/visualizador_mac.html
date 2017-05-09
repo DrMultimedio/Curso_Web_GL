@@ -168,7 +168,7 @@ function runWebGLApp() {
     // console.log("Voy a crear una malla");
 
     var anim = new Animacion();
-    for(i=1; i<42 ; i++){
+    for(i=1; i<3 ; i++){
         if(i<10) anim.pushMalla('models/anim2/mac_00000'+i +'.obj');
         else if(i<100) anim.pushMalla('models/anim2/mac_0000'+i +'.obj');
         else anim.pushMalla('models/anim2/mac_000'+i +'.obj');
@@ -180,13 +180,13 @@ function runWebGLApp() {
     var luz3=motor.crearLuz();
 
     luz1.getEntidad().setPosicion([-20.0, -10.0, -5.0]);
-    luz1.getEntidad().setDifusa([0.0, 0.0, 0.0, 0.0]);
+    luz1.getEntidad().setDifusa([1.0, 0.0, 0.0, 0.0]);
     luz2.getEntidad().setPosicion([20.0, 10.0, 5.0]);
 
     luz2.getEntidad().setDifusa([0.0, 0.3, 0.3, 0.0]);
 
-    luz3.getEntidad().setPosicion([20.0, -15.0, 5.0]);
-    luz3.getEntidad().setDifusa([0.3, 0.3, 0.3, 0.0]);
+    luz3.getEntidad().setPosicion([-20.0, 15.0, 500.0]);
+    luz3.getEntidad().setDifusa([0.3, 0.0, 0.3, 0.0]);
 
 
 	motor.agregaLuz(luz1);
