@@ -100,29 +100,41 @@ Motor.prototype.crearAnimacion = function(nombre, frame) {
 };
 
 Motor.prototype.agregaLuz = function(l) {
-	console.log("luces antes vale:");
+/*	console.log("luces antes vale:");
 	console.log(this.luces);
 	console.log("Inserto la luz:");
 	console.log(l);
-	this.luces.push(l);
-	this.lucesActivas.push(1); //por defecto encendida
+*/	this.luces.push(l);
+	this.lucesActivas.push(0); //por defecto apagada
 	this.matricesLuces.push(null);
-	console.log("luces despues vale:");
+/*	console.log("luces despues vale:");
 	console.log(this.luces);
 	console.log("Y el array mide:");
 	console.log(this.luces.length);
-};
+*/};
 Motor.prototype.setLuzActiva = function(cam) {
-	console.log("lucesActiva.lenght activas antes vale:");
+/*	console.log("lucesActiva.lenght activas antes vale:");
 	console.log(this.lucesActivas.length);
 	console.log("luces.lenght antes vale:");
 	console.log(this.luces.length);
-	this.lucesActivas[cam] = 1;
-	console.log("luces activas despues vale:");
+*/	this.lucesActivas[cam] = 1;
+/*	console.log("luces activas despues vale:");
 	console.log(this.lucesActivas);
 	console.log("luces despues vale:");
 	console.log(this.luces);
-};
+*/};
+Motor.prototype.apagarLuzActiva = function(cam) {
+/*	console.log("lucesActiva.lenght activas antes vale:");
+	console.log(this.lucesActivas.length);
+	console.log("luces.lenght antes vale:");
+	console.log(this.luces.length);
+*/	this.lucesActivas[cam] = 0;
+	console.log(this.lucesActivas);
+/*	console.log("luces activas despues vale:");
+	console.log(this.lucesActivas);
+	console.log("luces despues vale:");
+	console.log(this.luces);
+*/};
 Motor.prototype.agregaCam = function(l) {
 	this.cams.push(l);
 	return this.cams.length;
@@ -130,11 +142,19 @@ Motor.prototype.agregaCam = function(l) {
 Motor.prototype.setCamActiva = function(cam) {
 	camActiva=cam;
 };
+Motor.prototype.checkLuzActiva = function(l){
+	if(this.lucesActivas[l] == 1){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
 Motor.prototype.getLucesActivasPos = function() {
 	array = [];
-	console.log(this.lucesActivas);
+/*	console.log(this.lucesActivas);
 	console.log(this.luces);
-	for(i=0; i<this.lucesActivas.length; i++){
+*/	for(i=0; i<this.lucesActivas.length; i++){
 		if(this.lucesActivas[i] == 1)
 		{
 			for(j=0 ; j<3; j++){
@@ -143,14 +163,14 @@ Motor.prototype.getLucesActivasPos = function() {
 			}
 		}
 	}
-	console.log(array);
-	return array; 
+/*	console.log(array);
+*/	return array; 
 };
 Motor.prototype.getLucesActivasDif = function() {
 	array = [];
-	console.log(this.lucesActivas);
+/*	console.log(this.lucesActivas);
 	console.log(this.luces);
-	for(i=0; i<this.lucesActivas.length; i++){
+*/	for(i=0; i<this.lucesActivas.length; i++){
 		if(this.lucesActivas[i] == 1)
 		{
 			for(j=0 ; j<4; j++){
@@ -159,8 +179,8 @@ Motor.prototype.getLucesActivasDif = function() {
 			}
 		}
 	}
-	console.log(array);
-	return array; 
+/*	console.log(array);
+*/	return array; 
 };
 Motor.prototype.drawInitProgram = function() {
     gl = Utils.getGLContext("canvas-element-id");
@@ -190,16 +210,17 @@ Motor.prototype.drawInitProgram = function() {
 					"uSampler",
 					];
 
-	console.log("Luces" +this.getLucesActivasPos());	
-
+/*	console.log("Luces" +this.getLucesActivasPos());	
+*/
     Program.load(attributeList, uniformList);
-    console.log(this.luces);
-
+/*    console.log(this.luces);
+*/
 	gl.uniform4fv(Program.uLightAmbient ,  [0.0,0.0,1.0,1.0]);
 
-	console.log(this.getLucesActivasPos());
+/*	console.log(this.getLucesActivasPos());
 	console.log(this.getLucesActivasDif());
 
+*/	
 	gl.uniform3fv(Program.uLightPosition, this.getLucesActivasPos());
 	gl.uniform4fv(Program.uLightDiffuse,  this.getLucesActivasDif());
 
@@ -271,19 +292,19 @@ Motor.prototype.initViewMatrix = function() {
 
 Motor.prototype.initLights = function() {
 
-		console.log("Recorro el array de luces activas para ver cual esta activa");
+		//console.log("Recorro el array de luces activas para ver cual esta activa");
 		console.log(this.lucesActivas);
 		for(var i=0; i<this.lucesActivas.length; i++){
 		console.log("En la iteraccion "+i);
 		if(this.lucesActivas[i]==1){
-			console.log("Luz activa");
+			//console.log("Luz activa");
 			var recorrido = [];
 			var luz = this.luces[i];
-			console.log("luz vale: ");
-			console.log(luz);
+			//console.log("luz vale: ");
+			//console.log(luz);
 			while(luz.getPadre()!=null){
-				console.log("Asciendo al padre y guardo el nodo en recorrido")
-				console.log(luz.getPadre());
+				//console.log("Asciendo al padre y guardo el nodo en recorrido")
+				//console.log(luz.getPadre());
 				luz = luz.getPadre();
 				recorrido.push(luz);
 			}
@@ -293,29 +314,29 @@ Motor.prototype.initLights = function() {
 		  	mat4.identity(aux);
 	  		var matriz = mat4.create();
   			mat4.identity(matriz);
-			console.log("Recorro el array de tranformaciones");
+			//console.log("Recorro el array de tranformaciones");
   			for(var j=0; j<recorrido.length; j++){
-				console.log("tranformacion numero:"+j);
-				console.log(recorrido[j].getEntidad());
+				//console.log("tranformacion numero:"+j);
+				//console.log(recorrido[j].getEntidad());
 				matriz = recorrido[j].getEntidad().getMatriz();
 
-				console.log("Multiplico "+matriz+" por "+aux);
+				//console.log("Multiplico "+matriz+" por "+aux);
 				mat4.multiply(aux, matriz);
-				console.log("matriz vale: ");
-				console.log(matriz);
-				console.log("aux vale: ");
-				console.log(aux);
+				//console.log("matriz vale: ");
+				//console.log(matriz);
+				//console.log("aux vale: ");
+				//console.log(aux);
 			  }
 			this.matricesLuces[i]=matriz;
-			console.log("MAtrix de luz vale: ");
-			console.log(matriz);
+			//console.log("MAtrix de luz vale: ");
+			//console.log(matriz);
 			LuzMatrix=matriz;
-			console.log(LuzMatrix);
+			//console.log(LuzMatrix);
 			}else{
-				console.log("Luz apagada");
+				//console.log("Luz apagada");
 			}
 	}
-	console.log(this.matricesLuces);
+	//console.log(this.matricesLuces);
 };
 Motor.prototype.draw = function() {
 	//pasos para crear el motor

@@ -67,7 +67,7 @@ CodeViewer.prototype.updateGUI = function(){
     var canvas_container = document.getElementById('canvasContainer');
     
     //1. Create DOM Elements
-	var buttons = document.createElement('div');
+/*	var buttons = document.createElement('div');
     buttons.id = 'buttons';
     
     var buttons_code = document.createElement('div');
@@ -98,7 +98,7 @@ CodeViewer.prototype.updateGUI = function(){
 	btnShowControls.setAttribute('type','radio');
 	btnShowControls.setAttribute('name','mode');
 	btnShowControls.setAttribute('value','controls');
-	
+*/	
     // buttons_canvas.appendChild(btnFullView);
 	// buttons_canvas.appendChild(btnShowCode);
 	// if(!this.NO_CONTROLS)	buttons_canvas.appendChild(btnShowControls);
@@ -135,29 +135,29 @@ CodeViewer.prototype.updateGUI = function(){
     
     if(this.mode == this.MODE_VIEW){
         canvas_container.style.width    = '100%';
-        code_container.style.display    = 'none';
+/*        code_container.style.display    = 'none';
         buttons_code.style.display      = 'none';
         btnFullView.checked             = true;
-		bottom.style.display			= 'block';
+*/		//bottom.style.display			= 'block';
     }
     else if (this.mode == this.MODE_CODE_AND_VIEW){
         code_container.style.display    = 'block';
-        buttons_code.style.display      = 'block';
+/*        buttons_code.style.display      = 'block';
 		
         btnFullView.checked             = false;
-		bottom.style.display			= 'block';
+*/		//bottom.style.display			= 'block';
 
     }
     else if (this.mode == this.MODE_VIEW_AND_CONTROLS){
 		canvas_container.style.width    = '39%';
-		code_container.style.display    = 'none';
+/*		code_container.style.display    = 'none';
 		buttons_code.style.display      = 'none';
-		bottom.style.width				= '60%';
-		bottom.style.position			= 'relative';
+*/		//bottom.style.width				= '60%';
+		//bottom.style.position			= 'relative';
     }
    
     //3. Assembling GUI
-    $('#canvasContainer').before(code_container);$('#bottom').before(buttons);
+   // $('#canvasContainer').before(code_container);$('#bottom').before(buttons);
     
 	if(this.mode == this.MODE_VIEW_AND_CONTROLS){
 		$('#contents').prepend($('#bottom').detach());

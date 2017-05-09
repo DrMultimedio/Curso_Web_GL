@@ -219,9 +219,9 @@ function runWebGLApp() {
 
 
     motor.agregaLuz(luz1);
-/*    motor.agregaLuz(luz2);
+    motor.agregaLuz(luz2);
     motor.agregaLuz(luz3);
-*/
+
     //motor.setLuzActiva(0);
     var malla2=motor.crearMalla("objtex2.obj");
     var malla=motor.crearMalla("chess.obj");
@@ -238,6 +238,41 @@ function runWebGLApp() {
     
     motor.draw();
 }
+function luz_click(luz){
+    if(luz == 1){
+        if(motor.checkLuzActiva(0)){
+            motor.apagarLuzActiva(0);
+            motor.draw();
+        }
+        else{
+            motor.setLuzActiva(0);
+            motor.draw();
+        }
+
+    }
+
+    if(luz == 2){
+        if(motor.checkLuzActiva(1)){
+            motor.apagarLuzActiva(1);
+            motor.draw();
+        }
+        else{
+            motor.setLuzActiva(1);
+            motor.draw();
+        }
+
+    }
+    if(luz == 3){
+        if(motor.checkLuzActiva(2)){
+            motor.apagarLuzActiva(2);
+            motor.draw();
+        }
+        else{
+            motor.setLuzActiva(2);
+            motor.draw();
+        }
+
+    }}
 </script>
 </head>
 
@@ -256,5 +291,9 @@ Your browser does not support the HTML5 canvas element.
 
 
 <script>cview.run(cview.MODE_VIEW);</script>
+
+<button onclick="luz_click(1)">Luz 1 </button>
+<button onclick="luz_click(2)">Luz 2 </button>
+<button onclick="luz_click(3)">Luz 3 </button>
 </body>
 </html>

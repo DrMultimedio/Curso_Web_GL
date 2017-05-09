@@ -65,7 +65,8 @@ CameraInteractor.prototype.rotate = function(dx, dy){
 */
     this.nodo.getEntidad().rotarX(nAzimuth);
     this.nodo.getEntidad().rotarY(nElevation);
-    console.log(this.nodo.getEntidad().getMatriz())
+/*    console.log(this.nodo.getEntidad().getMatriz())
+*/
 }
 
 CameraInteractor.prototype.update = function(){
