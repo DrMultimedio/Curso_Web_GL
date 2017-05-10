@@ -11,6 +11,7 @@ function MallaGestor(){
 	this.alias=null;
 	this.remote=null;
 	this.textura = null;
+	this.texCoordinates = null;
 }
 MallaGestor.prototype.getNombre = function(){
 	return this.nombreFich;
@@ -26,12 +27,12 @@ MallaGestor.prototype.cargarFichero = function(fich) {
 		var alias= "alias";
  		peticion.open('GET', fich, false);
 		var formato = fich.split('.').pop();
-		//console.log("El formato es " + formato);
 		var malla = this;
 
 		if(formato = "obj"){
 		peticion.onload = function() {
 					object = new OBJ.Mesh(peticion.responseText);
+					console.log(object);
 					malla.alias = (alias==null)?'none':alias;
 	                malla.remote = true;
 					malla.vertices=object.vertices;
@@ -39,6 +40,7 @@ MallaGestor.prototype.cargarFichero = function(fich) {
 					malla.colors=object.colors;
 					malla.diffuse = object.diffuse;
 					malla.wireframe = object.wireframe;
+					malla.texCoordinates = object.textures
 					malla.perVertexColor = object.perVertexColor;
 					if (object.perVertexColor   === undefined)    {   malla.perVertexColor   = false;            }
 					if (object.wireframe        === undefined)    {   malla.wireframe        = false;            }
@@ -141,7 +143,9 @@ MallaGestor.prototype.cargarFichero = function(fich) {
 		}
 		peticion.send();
 }
-
+MallaGestor.prototype.getCoordinates = function() {
+	return this.texCoordinates;
+};
 
 MallaGestor.prototype.draw = function() {
 	var object = this;

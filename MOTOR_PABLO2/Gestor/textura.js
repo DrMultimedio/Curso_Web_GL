@@ -3,6 +3,7 @@ function Textura(){
 	this.nombre = "";
 	this.imagen = new Image();
 	this.textura = gl.createTexture();
+	this.textureCoordinates = [];
 	this.imagen.onload = function(){
 		self.handleLoadedTexture();
 	}
@@ -16,47 +17,17 @@ Textura.prototype.setImagen = function(file){
 	this.imagen.src = file;
 
 }
-
+Textura.prototype.setCoordinates = function(coord) {
+	this.textureCoordinates = coord;
+	this.handleLoadedTexture();
+};
 Textura.prototype.handleLoadedTexture = function() {
 
 
 		cubeVerticesTextureCoordBuffer = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, cubeVerticesTextureCoordBuffer);
 		  
-		var textureCoordinates = [
-		  // Front
-		  0.0,  0.0,
-		  1.0,  0.0,
-		  1.0,  1.0,
-		  0.0,  1.0,
-		  // Back
-		  0.0,  0.0,
-		  1.0,  0.0,
-		  1.0,  1.0,
-		  0.0,  1.0,
-		  // Top
-		  0.0,  0.0,
-		  1.0,  0.0,
-		  1.0,  1.0,
-		  0.0,  1.0,
-		  // Bottom
-		  0.0,  0.0,
-		  1.0,  0.0,
-		  1.0,  1.0,
-		  0.0,  1.0,
-		  // Right
-		  0.0,  0.0,
-		  1.0,  0.0,
-		  1.0,  1.0,
-		  0.0,  1.0,
-		  // Left
-		  0.0,  0.0,
-		  1.0,  0.0,
-		  1.0,  1.0,
-		  0.0,  1.0
-		];
-
-		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoordinates),
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.textureCoordinates),
 		              gl.STATIC_DRAW);
 
 

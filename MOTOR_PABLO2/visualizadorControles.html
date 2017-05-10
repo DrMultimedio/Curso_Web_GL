@@ -191,9 +191,6 @@ function runWebGLApp() {
 
 /*    var anim = new Animacion();
 */
-    var tex1 = new Textura();
-    tex1.setImagen("baldios.jpg");
-    console.log(tex1);
 
 /*
     for(i=1; i<30 ; i++){
@@ -209,7 +206,7 @@ function runWebGLApp() {
     var luz3=motor.crearLuz();
 
     luz1.getEntidad().setPosicion([200.0, 100.0, 500.0]);
-    luz1.getEntidad().setDifusa([1.0, 1.0, 1.0, 0.50]);
+    luz1.getEntidad().setDifusa([1.0, 1.0, 1.0, 1.0]);
     luz2.getEntidad().setPosicion([2000.0, 1000.0, 200.0]);
 
     luz2.getEntidad().setDifusa([0.0, 1.0, 1.0, 0.0]);
@@ -221,13 +218,19 @@ function runWebGLApp() {
     motor.agregaLuz(luz1);
     motor.agregaLuz(luz2);
     motor.agregaLuz(luz3);
+    
+    var tex1 = new Textura();
 
     //motor.setLuzActiva(0);
-    var malla2=motor.crearMalla("objtex2.obj");
+    var malla2=motor.crearMalla("objtex.obj");
     var malla=motor.crearMalla("chess.obj");
     // console.log("Ya la he creado");
     motor.agregaNodo(nodo1,nodo3);
     motor.agregaNodo(nodo2,nodo4);
+
+    tex1.setCoordinates(malla2.getEntidad().getMalla().getCoordinates())
+    tex1.setImagen("baldios.jpg");
+    console.log(tex1);
 
     malla2.getEntidad().getMalla().setTextura(tex1);
 
