@@ -160,33 +160,31 @@ MallaGestor.prototype.draw = function() {
 			//fin luces
 
         
-	        gl.uniform1i(prg.uUpdateLight,updateLightPosition);  
-			gl.uniform1i(prg.uUpdateLight2,updateLightPosition2);            
+	        gl.uniform1i(Program.uUpdateLight,updateLightPosition);  
+			gl.uniform1i(Program.uUpdateLight2,updateLightPosition2);            
             
             //Setting uniforms
-            gl.uniform4fv(prg.uMaterialDiffuse, object.diffuse);
-            gl.uniform1i(prg.uWireframe,object.wireframe);
-            gl.uniform1i(prg.uPerVertexColor, object.perVertexColor);
+            gl.uniform4fv(Program.uMaterialDiffuse, object.diffuse);
+            gl.uniform1i(Program.uWireframe,object.wireframe);
+            gl.uniform1i(Program.uPerVertexColor, object.perVertexColor);
             
             //Setting attributes
-            gl.enableVertexAttribArray(prg.aVertexPosition);
-            gl.disableVertexAttribArray(prg.aVertexNormal);
-            gl.disableVertexAttribArray(prg.aVertexColor);
-            
+            gl.enableVertexAttribArray(Program.aVertexPosition);
+            gl.disableVertexAttribArray(Program.aVertexNormal);
+            gl.disableVertexAttribArray(Program.aVertexColor);
+
             gl.bindBuffer(gl.ARRAY_BUFFER, object.vbo);
-            gl.vertexAttribPointer(prg.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
-            gl.enableVertexAttribArray(prg.aVertexPosition);
-/*			console.log ("dibujo la textura");
-			console.log(this.textura);
-*/			if(this.textura != null){
-/*				this.textura.draw();
-*/				gl.enableVertexAttribArray(Program.aVertexTextureCoords);
+            gl.vertexAttribPointer(Program.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+            gl.enableVertexAttribArray(Program.aVertexPosition);
+
+            console.log(Program);
+			if(this.textura != null){
+				gl.enableVertexAttribArray(Program.aVertexTextureCoords);
 				gl.bindBuffer(gl.ARRAY_BUFFER, object.tbo);
-				//console.log(Program.aVertexTextureCoords);
-				//gl.vertexAttribPointer(Program.aVertexTextureCoords, 2, gl.FLOAT, false, 0, 0);
+				console.log(Program.aVertexTextureCoords);
+				gl.vertexAttribPointer(Program.aVertexTextureCoords, 2, gl.FLOAT, false, 0, 0);
 	
 				gl.activeTexture(gl.TEXTURE0);
-				//console.log(this.textura.textura);
 				gl.bindTexture(gl.TEXTURE_2D, this.textura.textura);
 				gl.uniform1i(Program.uSampler, 0);
 
@@ -195,14 +193,14 @@ MallaGestor.prototype.draw = function() {
 
             if(!object.wireframe){
                 gl.bindBuffer(gl.ARRAY_BUFFER, object.nbo);
-                gl.vertexAttribPointer(prg.aVertexNormal, 3, gl.FLOAT, false, 0, 0);
-                gl.enableVertexAttribArray(prg.aVertexNormal);
+                gl.vertexAttribPointer(Program.aVertexNormal, 3, gl.FLOAT, false, 0, 0);
+                gl.enableVertexAttribArray(Program.aVertexNormal);
             }
             
             if (object.perVertexColor){
                 gl.bindBuffer(gl.ARRAY_BUFFER, object.cbo);
-                gl.vertexAttribPointer(prg.aVertexColor,4,gl.FLOAT, false, 0,0);
-                gl.enableVertexAttribArray(prg.aVertexColor);
+                gl.vertexAttribPointer(Program.aVertexColor,4,gl.FLOAT, false, 0,0);
+                gl.enableVertexAttribArray(Program.aVertexColor);
             }
             
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, object.ibo);

@@ -19,21 +19,20 @@ Textura.prototype.setImagen = function(file){
 }
 Textura.prototype.setCoordinates = function(coord) {
 	this.textureCoordinates = coord;
-	this.handleLoadedTexture();
 };
 Textura.prototype.handleLoadedTexture = function() {
 
 
-		cubeVerticesTextureCoordBuffer = gl.createBuffer();
-		gl.bindBuffer(gl.ARRAY_BUFFER, cubeVerticesTextureCoordBuffer);
-		  
-		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.textureCoordinates),
-		              gl.STATIC_DRAW);
+		console.log(this.textura);
 
 
 		console.info('loading image');
 		gl.bindTexture(gl.TEXTURE_2D, this.textura);
+		
 		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, this.imagen);
+	   
+		//gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.imagen.width, this.imagen.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, this.imagen);
+	    
 	    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
 	    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
 	    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -41,6 +40,7 @@ Textura.prototype.handleLoadedTexture = function() {
 
 	    gl.generateMipmap(gl.TEXTURE_2D);
 
+	    //desligo el buffer
 		gl.bindTexture(gl.TEXTURE_2D, null);
 
 		console.log(this);

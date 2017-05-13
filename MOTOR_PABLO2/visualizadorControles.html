@@ -49,6 +49,7 @@ attribute vec4 aVertexColor;
 
 //Incluimos un vector de dos elementos para las coordenadas de texturas
 attribute vec2 aTextureCoord;
+attribute vec2 aVertexTextureCoords;
 
 uniform mat4 uMVMatrix;
 uniform mat4 uPMatrix;
@@ -87,6 +88,7 @@ void main(void) {
  
  //Final vertex position
  gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+ vTextureCoord = aVertexTextureCoords;
 
 }   
 </script>
@@ -161,10 +163,10 @@ function updateTransforms(){
 * Called once per rendering cycle. 
 */
 function setMatrixUniforms(){
-     gl.uniformMatrix4fv(prg.uPMatrix, false, pMatrix);    //Maps the Perspective matrix to the uniform prg.uPMatrix
-     gl.uniformMatrix4fv(prg.uMVMatrix, false, mvMatrix);  //Maps the Model-View matrix to the uniform prg.uMVMatrix
+     gl.uniformMatrix4fv(Program.uPMatrix, false, pMatrix);    //Maps the Perspective matrix to the uniform Program.uPMatrix
+     gl.uniformMatrix4fv(Program.uMVMatrix, false, mvMatrix);  //Maps the Model-View matrix to the uniform Program.uMVMatrix
      mat4.transpose(cMatrix, nMatrix);                     //Calculates the Normal matrix 
-     gl.uniformMatrix4fv(prg.uNMatrix, false, nMatrix);    //Maps the Normal matrix to the uniform prg.uNMatrix
+     gl.uniformMatrix4fv(Program.uNMatrix, false, nMatrix);    //Maps the Normal matrix to the uniform Program.uNMatrix
 }
 
 

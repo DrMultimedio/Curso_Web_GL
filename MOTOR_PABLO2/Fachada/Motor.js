@@ -188,7 +188,8 @@ Motor.prototype.drawInitProgram = function() {
 	var useVertexColors = false;
 	var texture = null;
 
-	var attributeList = ["aVertexPosition",
+	var attributeList = [
+					"aVertexPosition",
 					"aVertexNormal",
 					"aVertexColor",
 					"aVertexTextureCoords"];

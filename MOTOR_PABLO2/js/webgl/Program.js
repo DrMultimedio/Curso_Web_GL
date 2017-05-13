@@ -18,11 +18,13 @@ var Program = {
             k = k.nextSibling;
         }
 
-        var shader;
+        var shader, message;
         if (script.type == "x-shader/x-fragment") {
             shader = gl.createShader(gl.FRAGMENT_SHADER);
+            message = 'Fragment Shader';
         } else if (script.type == "x-shader/x-vertex") {
             shader = gl.createShader(gl.VERTEX_SHADER);
+            message = 'Vertex Shader';
         } else {
             return null;
         }
@@ -31,7 +33,7 @@ var Program = {
         gl.compileShader(shader);
 
         if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-            alert(gl.getShaderInfoLog(shader));
+            alert('There was a problem with the ' + message +':\n\n'+ gl.getShaderInfoLog(shader));
             return null;
         }
         return shader;
@@ -42,7 +44,7 @@ var Program = {
     * what to do with every vertex and fragment that we pass it. 
     * The vertex shader and the fragment shader together are called the program.
     */
-    load : function() {
+    load : function(attributeList, uniformList) {
 
      var fragmentShader          = Program.getShader(gl, "shader-fs");
      var vertexShader            = Program.getShader(gl, "shader-vs");
@@ -52,7 +54,7 @@ var Program = {
      gl.attachShader(prg, fragmentShader);
      
      
-     //---------------------------------------------------
+      //---------------------------------------------------
      // UPDATE:
      // March 31th 2014: make sure that the location 0 is always assigned
      // to the vertex position attribute. 
@@ -70,8 +72,9 @@ var Program = {
      taken from https://developer.mozilla.org/en-US/docs/Web/WebGL/WebGL_best_practices
     */
      
-     gl.bindAttribLocation(prg, 0 , "aVertexPosition");
+     gl.bindAttribLocation(prg, 0 , "aVertexPosition"); // <-- make sure we call it like this later on..
      //---------------------------------------------------// 
+     
      gl.linkProgram(prg);
 
      if (!gl.getProgramParameter(prg, gl.LINK_STATUS)) {
@@ -80,46 +83,30 @@ var Program = {
 
      gl.useProgram(prg);
      
-     
+     //---------------------------------------------------
+     // UPDATE:
+     // March 31th 2014: make sure that the location 0 is always assigned
+     // to the vertex position attribute. 
+     //----------------------------------------------------------------------// 
+     gl.enableVertexAttribArray(0);   //vertex position attr. is in location 0
+     //----------------------------------------------------------------------// 
+     this.setAttributeLocations(attributeList);
+     this.setUniformLocations(uniformList);
 
-     prg.aVertexPosition  = gl.getAttribLocation(prg, "aVertexPosition");
-     //---------------------------------------------------// 
-     gl.enableVertexAttribArray(prg.aVertexPosition);
-     //---------------------------------------------------// 
-     
-     prg.aVertexNormal    = gl.getAttribLocation(prg, "aVertexNormal");
-     prg.aVertexColor     = gl.getAttribLocation(prg, "aVertexColor");
-     
-     prg.uPMatrix         = gl.getUniformLocation(prg, "uPMatrix");
-     prg.uMVMatrix        = gl.getUniformLocation(prg, "uMVMatrix");
-     prg.uNMatrix         = gl.getUniformLocation(prg, "uNMatrix");
-     
-     prg.uMaterialDiffuse  = gl.getUniformLocation(prg, "uMaterialDiffuse");
-     prg.uLightAmbient     = gl.getUniformLocation(prg, "uLightAmbient");
-     prg.uLightDiffuse     = gl.getUniformLocation(prg, "uLightDiffuse");
-     prg.uLightPosition    = gl.getUniformLocation(prg, "uLightPosition");
-     prg.uUpdateLight      = gl.getUniformLocation(prg, "uUpdateLight");
-     prg.uWireframe        = gl.getUniformLocation(prg, "uWireframe");
-     prg.uPerVertexColor   = gl.getUniformLocation(prg, "uPerVertexColor");
-     
-     /*console.log("EJECUTO LAS PÜTAS LUCES");console.log(LuzMatrix);console.log(LuzMatrix[12]);console.log(LuzMatrix[13]);console.log(LuzMatrix[14]);
-    var auux=[];
-    auux.push([LuzMatrix[12],LuzMatrix[13],LuzMatrix[14]]);
-    auux.push([LuzMatrix[3],LuzMatrix[2],LuzMatrix[3]])
-     gl.uniform3fv(prg.uLightPosition,     auux);
-     gl.uniform4fv(prg.uLightAmbient,      [0.20,0.20,0.20,1.0]);
-     gl.uniform4fv(prg.uLightDiffuse,      [1.0,1.0,1.0,1.0]); */
-/*     gl.uniform3fv(prg.uLightPosition,     [LuzMatrix[12],LuzMatrix[13],LuzMatrix[14], 1.0 ,1.0  ,1.0 ]);
-*/     
-     console.log(LuzMatrix);
-     gl.uniform4fv(prg.uLightAmbient,      [0.20,0.20,0.20,1.0]);
-/*     gl.uniform4fv(prg.uLightDiffuse,      [0.0,1.0,1.0,1.0, 1.0,0.0,1.0,1.0]);
-*/    
-     gl.uniform3fv(prg.uLightPosition, motor.getLucesActivasPos());
-     gl.uniform4fv(prg.uLightDiffuse,  motor.getLucesActivasDif());
+    },
+    
+    setAttributeLocations: function (attrList){
+        
+        for(var i=0, max = attrList.length; i <max; i+=1){
+            this[attrList[i]] = gl.getAttribLocation(prg, attrList[i]);
+        }
 
-    console.log(motor.getLucesActivasDif());
-    console.log(motor.getLucesActivasPos());
-
+    },
+    
+    setUniformLocations: function (uniformList){
+        
+        for(var i=0, max = uniformList.length; i < max; i +=1){
+            this[uniformList[i]] = gl.getUniformLocation(prg, uniformList[i]);
+        }
     }
 };
