@@ -209,7 +209,7 @@ MallaGestor.prototype.draw = function() {
                  gl.
             
      	    enable(gl.CULL_FACE);
-            gl.cullFace(gl.FRONT);
+            gl.cullFace(gl.BACK);
 
             if (object.wireframe){
                 gl.drawElements(gl.LINES, object.indices.length, gl.UNSIGNED_SHORT,0);
