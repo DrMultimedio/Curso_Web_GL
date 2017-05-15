@@ -171,7 +171,7 @@ MallaGestor.prototype.draw = function() {
             //Setting attributes
             gl.enableVertexAttribArray(prg.aVertexPosition);
             gl.disableVertexAttribArray(prg.aVertexNormal);
-            gl.disableVertexAttribArray(prg.aVertexColor);
+           // gl.disableVertexAttribArray(prg.aVertexColor);
             
             gl.bindBuffer(gl.ARRAY_BUFFER, object.vbo);
             gl.vertexAttribPointer(prg.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
@@ -206,7 +206,11 @@ MallaGestor.prototype.draw = function() {
             }
             
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, object.ibo);
+                 gl.
             
+     	    enable(gl.CULL_FACE);
+            gl.cullFace(gl.FRONT);
+
             if (object.wireframe){
                 gl.drawElements(gl.LINES, object.indices.length, gl.UNSIGNED_SHORT,0);
             }
