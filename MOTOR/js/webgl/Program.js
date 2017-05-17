@@ -86,15 +86,17 @@ var Program = {
      //---------------------------------------------------// 
      gl.enableVertexAttribArray(prg.aVertexPosition);
      //---------------------------------------------------// 
-     
+
      prg.aVertexNormal    = gl.getAttribLocation(prg, "aVertexNormal");
      prg.aVertexColor     = gl.getAttribLocation(prg, "aVertexColor");
-     
+     prg.aVertexTextureCoords     = gl.getAttribLocation(prg, "aVertexTextureCoords");
+
      prg.uPMatrix         = gl.getUniformLocation(prg, "uPMatrix");
      prg.uMVMatrix        = gl.getUniformLocation(prg, "uMVMatrix");
      prg.uNMatrix         = gl.getUniformLocation(prg, "uNMatrix");
      
      prg.uMaterialDiffuse  = gl.getUniformLocation(prg, "uMaterialDiffuse");
+     prg.uMaterialDiffuse  = gl.getUniformLocation(prg, "uMaterialAmbient");
      prg.uLightAmbient     = gl.getUniformLocation(prg, "uLightAmbient");
      prg.uLightDiffuse     = gl.getUniformLocation(prg, "uLightDiffuse");
      prg.uLightPosition    = gl.getUniformLocation(prg, "uLightPosition");
@@ -102,6 +104,9 @@ var Program = {
      prg.uWireframe        = gl.getUniformLocation(prg, "uWireframe");
      prg.uPerVertexColor   = gl.getUniformLocation(prg, "uPerVertexColor");
      
+     prg.uPerVertexColor   = gl.getUniformLocation(prg, "uUseLambert");
+     prg.uPerVertexColor   = gl.getUniformLocation(prg, "uCutOff");
+     prg.uPerVertexColor   = gl.getUniformLocation(prg, "uSampler");
      /*console.log("EJECUTO LAS PÜTAS LUCES");console.log(LuzMatrix);console.log(LuzMatrix[12]);console.log(LuzMatrix[13]);console.log(LuzMatrix[14]);
     var auux=[];
     auux.push([LuzMatrix[12],LuzMatrix[13],LuzMatrix[14]]);

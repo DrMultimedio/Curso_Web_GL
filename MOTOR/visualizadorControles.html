@@ -149,11 +149,11 @@ void main(void)
 
 <script id='code-js' type="text/javascript">
 
-function logGLCall(functionName, args) {   
+/*function logGLCall(functionName, args) {   
    console.log("gl." + functionName + "(" + 
       WebGLDebugUtils.glFunctionArgsToString(functionName, args) + ")");   
 } 
-
+*/
 function updateTransforms(){
     mat4.perspective(30, c_width / c_height, 0.1, 1000.0, pMatrix);  // We can resize the screen at any point so the perspective matrix should be updated always.
 }
@@ -234,7 +234,7 @@ function runWebGLApp() {
     motor.agregaNodo(nodo1,nodo3);
     motor.agregaNodo(nodo2,nodo4);
 
-    tex1.setImagen("baldios.jpg");
+    tex1.setImagen("appay.jpg");
     console.log(tex1);
 
     malla2.getEntidad().getMalla().setTextura(tex1);
