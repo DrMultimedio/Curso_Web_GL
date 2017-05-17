@@ -184,7 +184,6 @@ Motor.prototype.getLucesActivasDif = function() {
 };
 Motor.prototype.drawInitProgram = function() {
     gl = Utils.getGLContext("canvas-element-id");
-	gl = WebGLDebugUtils.makeDebugContext(gl, undefined, logGLCall);
 
 	var useVertexColors = false;
 	var texture = null;

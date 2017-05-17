@@ -38,7 +38,6 @@
 <script src="Fachada/Motor.js"></script>
 <script src="Fachada/main.js"></script>
 <script src="Fachada/interaccion_camara.js"></script>
-<script src="js/debugTools/src/debug/webgl-debug.js"></script>
 
 <script> var motor= new Motor(); </script>
 
@@ -46,6 +45,7 @@
 
 attribute vec3 aVertexPosition;
 attribute vec3 aVertexNormal;
+attribute vec4 aVertexColor;
 
 //Incluimos un vector de dos elementos para las coordenadas de texturas
 attribute vec2 aTextureCoord;
@@ -149,10 +149,6 @@ void main(void)
 
 <script id='code-js' type="text/javascript">
 
-function logGLCall(functionName, args) {   
-   console.log("gl." + functionName + "(" + 
-      WebGLDebugUtils.glFunctionArgsToString(functionName, args) + ")");   
-} 
 
 function updateTransforms(){
     mat4.perspective(30, c_width / c_height, 0.1, 1000.0, pMatrix);  // We can resize the screen at any point so the perspective matrix should be updated always.
@@ -176,8 +172,6 @@ function setMatrixUniforms(){
 * Entry point. This function is invoked when the page is loaded
 */
 function runWebGLApp() {
-
-    debugContext = WebGLDebugUtils.makeDebugContext(Utils.getGLContext("canvas-element-id"));
     app = new WebGLApp("canvas-element-id");
     motor.crearEscena();
     //var nodo1=motor.crearRotacion(1,5,2,5); //rotacion camara
@@ -228,12 +222,13 @@ function runWebGLApp() {
     var tex1 = new Textura();
 
     //motor.setLuzActiva(0);
-    var malla2=motor.crearMalla("models/objtex.obj");
-    var malla=motor.crearMalla("models/chess.obj");
+    var malla2=motor.crearMalla("objtex.obj");
+    var malla=motor.crearMalla("chess.obj");
     // console.log("Ya la he creado");
     motor.agregaNodo(nodo1,nodo3);
     motor.agregaNodo(nodo2,nodo4);
 
+    tex1.setCoordinates(malla2.getEntidad().getMalla().getCoordinates())
     tex1.setImagen("baldios.jpg");
     console.log(tex1);
 
