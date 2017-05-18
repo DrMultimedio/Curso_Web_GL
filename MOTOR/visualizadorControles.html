@@ -43,22 +43,30 @@
 <script> var motor= new Motor(); </script>
 
 <script id="shader-vs" type="x-shader/x-vertex">
+const int NUM_LIGHTS = 4;
 
+//geometria
 attribute vec3 aVertexPosition;
 attribute vec3 aVertexNormal;
+attribute vec4 aVertexColor;
+attribute vec2 aVertexTextureCoords;
 
-//Incluimos un vector de dos elementos para las coordenadas de texturas
-attribute vec2 aTextureCoord;
+uniform bool uUseVertexColor;
+uniform vec4 uMaterialDiffuse;
+uniform vec4 uMaterialAmbient;
+uniform float uAlpha;
 
+//matrices
 uniform mat4 uMVMatrix;
 uniform mat4 uPMatrix;
 uniform mat4 uNMatrix;
-uniform float uAlpha;
 
-const int NUM_LIGHTS = 4;
-
-uniform vec4 uMaterialDiffuse;
+//lights
 uniform vec3 uLightPosition[NUM_LIGHTS];
+uniform vec4 uLightAmbient;
+uniform vec4 uLightDiffuse;
+uniform bool uUseLambert;
+varying vec3 vLightRay[NUM_LIGHTS];
 
 //varyings
 varying vec4 vColor;
@@ -66,14 +74,39 @@ varying vec2 vTextureCoord;
 
 
 varying vec3 vNormal;
-varying vec3 vLightRay[NUM_LIGHTS];
 
 void main(void) {
  
  //Transformed vertex position
  vec4 vertex = uMVMatrix * vec4(aVertexPosition, 1.0);
 
- vTextureCoord = aTextureCoord;
+ vTextureCoord = aVertexTextureCoords;
+
+ float lambertTerm = 1.0;
+
+ if (uUseLambert){
+    //Transformed normal position
+    vec3 normal = vec3(uNMatrix * vec4(aVertexNormal, 1.0));
+ 
+    //light direction: pointing at the origin
+    //vec3 lightDirection = normalize(-uLightPosition);
+ 
+    //weighting factor
+    //lambertTerm = max(dot(normal,-lightDirection),0.20);
+ }
+ //reading vertex color
+ vec4 Ia = uLightAmbient * uMaterialAmbient;
+ vec4 Id = vec4(0.0);
+ 
+ if (uUseVertexColor){
+    Id = uLightDiffuse * aVertexColor * lambertTerm;
+ }
+ else {
+    Id = uLightDiffuse * uMaterialDiffuse * lambertTerm;
+ }
+ 
+ vColor = Ia + Id;
+ vColor.a = uAlpha;
 
  //Transformed normal position
  vNormal = vec3(uNMatrix * vec4(aVertexNormal, 1.0));
@@ -87,6 +120,7 @@ void main(void) {
  
  //Final vertex position
  gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+ vTextureCoord = aVertexTextureCoords;
 
 }   
 </script>
@@ -149,11 +183,11 @@ void main(void)
 
 <script id='code-js' type="text/javascript">
 
-/*function logGLCall(functionName, args) {   
+function logGLCall(functionName, args) {   
    console.log("gl." + functionName + "(" + 
       WebGLDebugUtils.glFunctionArgsToString(functionName, args) + ")");   
 } 
-*/
+
 function updateTransforms(){
     mat4.perspective(30, c_width / c_height, 0.1, 1000.0, pMatrix);  // We can resize the screen at any point so the perspective matrix should be updated always.
 }

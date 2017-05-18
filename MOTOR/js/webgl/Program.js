@@ -89,6 +89,7 @@ var Program = {
 
      prg.aVertexNormal    = gl.getAttribLocation(prg, "aVertexNormal");
      prg.aVertexColor     = gl.getAttribLocation(prg, "aVertexColor");
+     console.log(gl.getAttribLocation   (prg, "aVertexColor "));
      prg.aVertexTextureCoords     = gl.getAttribLocation(prg, "aVertexTextureCoords");
 
      prg.uPMatrix         = gl.getUniformLocation(prg, "uPMatrix");
