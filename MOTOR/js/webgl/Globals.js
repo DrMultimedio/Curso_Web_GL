@@ -16,6 +16,7 @@ var Matriz = mat4.create();
 mat4.identity(Matriz);
 var pila = [];
 var coords = -1;
+var debug = false;
 
 var COORDS_WORLD = 1;
 var COORDS_CAMERA = 2;

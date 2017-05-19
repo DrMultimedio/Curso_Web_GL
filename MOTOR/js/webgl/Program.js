@@ -89,7 +89,8 @@ var Program = {
      
      prg.aVertexNormal    = gl.getAttribLocation(prg, "aVertexNormal");
      prg.aVertexColor     = gl.getAttribLocation(prg, "aVertexColor");
-     
+     prg.aTextureCoord     = gl.getAttribLocation(prg, "aTextureCoord");
+
      prg.uPMatrix         = gl.getUniformLocation(prg, "uPMatrix");
      prg.uMVMatrix        = gl.getUniformLocation(prg, "uMVMatrix");
      prg.uNMatrix         = gl.getUniformLocation(prg, "uNMatrix");
@@ -101,7 +102,8 @@ var Program = {
      prg.uUpdateLight      = gl.getUniformLocation(prg, "uUpdateLight");
      prg.uWireframe        = gl.getUniformLocation(prg, "uWireframe");
      prg.uPerVertexColor   = gl.getUniformLocation(prg, "uPerVertexColor");
-     
+     prg.vTextureCoord   = gl.getUniformLocation(prg, "vTextureCoord");
+
      /*console.log("EJECUTO LAS PÜTAS LUCES");console.log(LuzMatrix);console.log(LuzMatrix[12]);console.log(LuzMatrix[13]);console.log(LuzMatrix[14]);
     var auux=[];
     auux.push([LuzMatrix[12],LuzMatrix[13],LuzMatrix[14]]);

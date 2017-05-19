@@ -160,8 +160,6 @@ MallaGestor.prototype.draw = function() {
 			//fin luces
 
         
-	        gl.uniform1i(prg.uUpdateLight,updateLightPosition);  
-			gl.uniform1i(prg.uUpdateLight2,updateLightPosition2);            
             
             //Setting uniforms
             gl.uniform4fv(prg.uMaterialDiffuse, object.diffuse);
@@ -171,24 +169,24 @@ MallaGestor.prototype.draw = function() {
             //Setting attributes
             gl.enableVertexAttribArray(prg.aVertexPosition);
             gl.disableVertexAttribArray(prg.aVertexNormal);
-           // gl.disableVertexAttribArray(prg.aVertexColor);
             
             gl.bindBuffer(gl.ARRAY_BUFFER, object.vbo);
             gl.vertexAttribPointer(prg.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
             gl.enableVertexAttribArray(prg.aVertexPosition);
+
+			gl.enableVertexAttribArray(prg.aTextureCoord);
+			gl.vertexAttribPointer(prg.aTextureCoord, 2, gl.FLOAT, false, 0, 0);
+
 /*			console.log ("dibujo la textura");
 			console.log(this.textura);
 */			if(this.textura != null){
-/*				this.textura.draw();
-*/				gl.enableVertexAttribArray(Program.aVertexTextureCoords);
-				gl.bindBuffer(gl.ARRAY_BUFFER, object.tbo);
-				//console.log(Program.aVertexTextureCoords);
-				//gl.vertexAttribPointer(Program.aVertexTextureCoords, 2, gl.FLOAT, false, 0, 0);
-	
+				cubeVerticesTextureCoordBuffer = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, cubeVerticesTextureCoordBuffer);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.texCoordinates),gl.STATIC_DRAW);
+
 				gl.activeTexture(gl.TEXTURE0);
-				//console.log(this.textura.textura);
 				gl.bindTexture(gl.TEXTURE_2D, this.textura.textura);
-				gl.uniform1i(Program.uSampler, 0);
+				gl.uniform1i(gl.getUniformLocation(prg, 'uSampler'), 0);
 
 			}
 
@@ -206,9 +204,7 @@ MallaGestor.prototype.draw = function() {
             }
             
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, object.ibo);
-                 gl.
-            
-     	    enable(gl.CULL_FACE);
+            gl.enable(gl.CULL_FACE);
             gl.cullFace(gl.BACK);
 
             if (object.wireframe){
@@ -227,3 +223,4 @@ MallaGestor.prototype.endDraw = function() {
 }
 
 
+04

@@ -141,7 +141,7 @@ void main(void)
         //Final color
         finalColor  += Ia;
         finalColor.a = 1.0;             //Add ambient component: one for all                    
-        gl_FragColor = finalColor * texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));     //The alpha value in this example will be 1.0
+        gl_FragColor = finalColor * texture2D(uSampler, vTextureCoord);     //The alpha value in this example will be 1.0
   }
 
 }
