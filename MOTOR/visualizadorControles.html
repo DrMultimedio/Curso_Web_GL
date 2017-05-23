@@ -325,6 +325,22 @@ function cambia_malla(malla){
 
         motor.getNodoObjetoPrincipal().setEntidad(anim);
     }
+    else if (malla == 5){
+        var anim = new Animacion();
+
+
+
+        for(i=1; i<121 ; i++){
+            if(i<10) anim.pushMalla('models/micro/micro_00000'+i +'.obj');
+            else if(i<100) anim.pushMalla('models/micro/micro_0000'+i +'.obj');
+            else anim.pushMalla('models/micro/micro_000'+i +'.obj');
+        }
+
+
+        motor.getNodoObjetoPrincipal().setEntidad(anim);
+        console.log(motor.getNodoObjetoPrincipal());
+
+    }
 }
 </script>
 </head>
@@ -353,7 +369,7 @@ Your browser does not support the HTML5 canvas element.
 <button onclick="cambia_malla(2)">Animación</button>
 <button onclick="cambia_malla(3)">Cubito</button>
 <button onclick="cambia_malla(4)">Mac</button>
-<button onclick="cambia_malla(3)">Cubito</button>
+<button onclick="cambia_malla(5)">Microondas</button>
 
 </body>
 </html>
