@@ -11,6 +11,13 @@ function Motor(){
 	this.viewport = [];
 	this.viewportActivos = [];
 	this.drawSceneHook= undefined;
+	this.nodoObjetoPrincipal = null;
+}
+Motor.prototype.setNodoObjetoPrincipal = function(nod){
+	this.nodoObjetoPrincipal = nod;
+}
+Motor.prototype.getNodoObjetoPrincipal = function(){
+	return this.nodoObjetoPrincipal;
 }
 Motor.prototype.crearEscena = function() {
 	//Se crea un nodo escena

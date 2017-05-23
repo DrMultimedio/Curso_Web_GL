@@ -4,10 +4,13 @@ function Animacion(){
 	this.frame_actual = 0;
 	nombre = null;
 }
-Animacion.prototype.pushMalla = function(mesh_frame) {
+Animacion.prototype.pushMalla = function(mesh_frame, tex) {
 		console.log("meto el siguiente frame de la animación " + this.frames)
 		malla = new MallaGestor(); 
 		malla.cargarFichero(mesh_frame)
+		if(tex != null){
+			malla.setTextura(tex);
+		}
 		this.mallas.push(malla);
 		this.frames++;
 };
@@ -30,4 +33,8 @@ Animacion.prototype.drawImprime = function() {
 Animacion.prototype.endDraw = function() {
 
 };
+Animacion.prototype.beginDraw = function() {
+	this.draw();
+};
+
 

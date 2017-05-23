@@ -40,7 +40,7 @@ MallaGestor.prototype.cargarFichero = function(fich) {
 					malla.colors=object.colors;
 					malla.diffuse = object.diffuse;
 					malla.wireframe = object.wireframe;
-					malla.texCoordinates = object.textures
+					malla.texCoordinates = object.textures;
 					malla.perVertexColor = object.perVertexColor;
 					if (object.perVertexColor   === undefined)    {   malla.perVertexColor   = false;            }
 					if (object.wireframe        === undefined)    {   malla.wireframe        = false;            }
@@ -179,7 +179,9 @@ MallaGestor.prototype.draw = function() {
 
 /*			console.log ("dibujo la textura");
 			console.log(this.textura);
-*/			if(this.textura != null){
+*/			
+			
+			if(this.textura!=null && this.textura.length != 0){
 				cubeVerticesTextureCoordBuffer = gl.createBuffer();
 				gl.bindBuffer(gl.ARRAY_BUFFER, cubeVerticesTextureCoordBuffer);
 				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.texCoordinates),gl.STATIC_DRAW);
@@ -187,7 +189,6 @@ MallaGestor.prototype.draw = function() {
 				gl.activeTexture(gl.TEXTURE0);
 				gl.bindTexture(gl.TEXTURE_2D, this.textura.textura);
 				gl.uniform1i(gl.getUniformLocation(prg, 'uSampler'), 0);
-
 			}
 
 

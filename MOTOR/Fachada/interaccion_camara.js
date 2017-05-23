@@ -1,11 +1,14 @@
-function CameraInteractor(nodo,canvas){
+function CameraInteractor(rot, tras,canvas){
     
-    this.nodo = nodo; //le tenemos que pasar el nodo de transformacíon de la camara
+    this.rot = rot; //le tenemos que pasar el rot de transformacíon de la camara
+    this.tras = tras; //le tenemos que pasar el rot de transformacíon de la camara
+
     this.canvas = canvas;    
     this.update();
     this.dragging = false;
     this.x = 0;
     this.y = 0;
+    this.z = 0;
     this.lastX = 0;
     this.lastY = 0;
     this.button = 0;
@@ -47,7 +50,21 @@ CameraInteractor.prototype.onMouseMove = function(ev){
         }
     }
 }
+CameraInteractor.prototype.onKeyUp = function (e){
+   var key = e.keyCode ? e.keyCode : e.which;
+   if(key == 38){
+    //arriba
+    console.log("arriba");
+    this.z+=4;
+    this.tras.getEntidad().trasladar(0, 0, this.z)
+   }
+   else if (key == 40){
+    //abajo
+    this.z-=4;
+    this.tras.getEntidad().trasladar(0, 0, this.z)
 
+   }
+}
 CameraInteractor.prototype.rotate = function(dx, dy){
     
     
@@ -63,9 +80,9 @@ CameraInteractor.prototype.rotate = function(dx, dy){
 /*    camera.changeAzimuth(nAzimuth);
     camera.changeElevation(nElevation);
 */
-    this.nodo.getEntidad().rotarX(nAzimuth);
-    this.nodo.getEntidad().rotarY(nElevation);
-/*    console.log(this.nodo.getEntidad().getMatriz())
+    this.rot.getEntidad().rotarX(nAzimuth);
+    this.rot.getEntidad().rotarY(nElevation);
+/*    console.log(this.rot.getEntidad().getMatriz())
 */
 }
 
@@ -93,8 +110,6 @@ CameraInteractor.prototype.update = function(){
     }
     
     window.onkeyup = function(ev){
-/*        self.onKeyUp(ev);
-*/    
-        console.log("Metodo a implementar");
+        self.onKeyUp(ev);
     }
 }

@@ -2,7 +2,6 @@
 
 <head>
 <title>Adivina que objeto es</title>
-<meta charset="utf8">
 <meta http-equiv='content-type' content='text/html; charset=ISO-8859-1'>
 
 <!-- CSS Styles //-->
@@ -152,7 +151,6 @@
     </script>
 
 <script id='code-js' type="text/javascript">
-var nodo_objeto = null;
 
 function throwOnGLError(err, funcName, args) {
   throw WebGLDebugUtils.glEnumToString(err) + " was caused by call to: " + funcName;
@@ -205,6 +203,26 @@ function runWebGLApp() {
 
     // console.log("Voy a crear una malla");
 
+    var tex1 = new Textura();
+    tex1.setImagen("tex.png");
+
+
+    var anim = new Animacion();
+
+
+
+    for(i=1; i<30 ; i++){
+        if(i<10){
+            anim.pushMalla('models/anim/anim_00000'+i +'.obj', tex1);
+        } 
+        else if(i<100){
+            anim.pushMalla('models/anim/anim_000'+i +'.obj', tex1);
+        } 
+        else{
+            anim.pushMalla('models/anim/anim_000'+i +'.obj', tex1);
+        } 
+    }
+
 
     //luces
     var luz1=motor.crearLuz();
@@ -225,23 +243,20 @@ function runWebGLApp() {
     motor.agregaLuz(luz2);
     motor.agregaLuz(luz3);
     
-    var tex1 = new Textura();
 
     //motor.setLuzActiva(0);
     var malla2=motor.crearMalla("objtex4.obj");
-    var malla=motor.crearMalla("models/chess.obj");
+    var malla=motor.crearMalla("chess.obj");
     // console.log("Ya la he creado");
     motor.agregaNodo(nodo1,nodo3);
     motor.agregaNodo(nodo2,nodo4);
 
-    tex1.setImagen("tex.png");
-    console.log(tex1);
 
-    malla2.getEntidad().getMalla().setTextura(tex1);
+//    malla2.getEntidad().getMalla().setTextura(tex1);
 
     motor.agregaNodo(nodo3,camara);
-    motor.setNodoObjetoPrincipal( motor.agregaNodo(nodo4,malla2) );
-    //motor.agregaNodo(nodo4,anim);
+    //motor.agregaNodo(nodo4,malla2);
+    var objeto_principal = motor.agregaNodo(nodo4,anim);
     //motor.agregaNodo(nodo4,luz1);
     
     motor.draw();
@@ -281,51 +296,6 @@ function luz_click(luz){
         }
 
     }}
-function cambia_malla(malla){
-    if(malla == 1){
-        malla = new Malla(); 
-        malla.cargarMalla("models/bb8.obj")
-
-        motor.getNodoObjetoPrincipal().setEntidad(malla);
-        console.log(motor.getNodoObjetoPrincipal());
-    }
-    else if (malla == 2){
-        var anim = new Animacion();
-
-
-
-        for(i=1; i<30 ; i++){
-            if(i<10) anim.pushMalla('models/anim/anim_00000'+i +'.obj');
-            else if(i<100) anim.pushMalla('models/anim/anim_0000'+i +'.obj');
-            else anim.pushMalla('models/anim/anim_000'+i +'.obj');
-        }
-
-
-        motor.getNodoObjetoPrincipal().setEntidad(anim);
-        console.log(motor.getNodoObjetoPrincipal());
-    }
-    else if (malla == 3){
-        malla = new Malla(); 
-        malla.cargarMalla("objtex4.obj")
-
-        motor.getNodoObjetoPrincipal().setEntidad(malla);
-        console.log(motor.getNodoObjetoPrincipal());
-    }
-    else if (malla == 4){
-        var anim = new Animacion();
-
-
-
-        for(i=1; i<30 ; i++){
-            if(i<10) anim.pushMalla('models/anim2/mac_00000'+i +'.obj');
-            else if(i<100) anim.pushMalla('models/anim2/mac_0000'+i +'.obj');
-            else anim.pushMalla('models/anim2/mac_000'+i +'.obj');
-        }
-
-
-        motor.getNodoObjetoPrincipal().setEntidad(anim);
-    }
-}
 </script>
 </head>
 
@@ -348,12 +318,5 @@ Your browser does not support the HTML5 canvas element.
 <button onclick="luz_click(1)">Luz 1 </button>
 <button onclick="luz_click(2)">Luz 2 </button>
 <button onclick="luz_click(3)">Luz 3 </button>
-<br>
-<button onclick="cambia_malla(1)">BB8 </button>
-<button onclick="cambia_malla(2)">Animación</button>
-<button onclick="cambia_malla(3)">Cubito</button>
-<button onclick="cambia_malla(4)">Mac</button>
-<button onclick="cambia_malla(3)">Cubito</button>
-
 </body>
 </html>

@@ -194,7 +194,7 @@ function runWebGLApp() {
     motor.agregaCam(camara);
     motor.setCamActiva(0);
 
-    var interactor = new CameraInteractor(nodo1, document.getElementById('canvas-element-id'));;
+    var interactor = new CameraInteractor(nodo1,nodo3, document.getElementById('canvas-element-id'));;
 
     // console.log("Voy a crear una malla");
 
@@ -244,7 +244,7 @@ function runWebGLApp() {
     motor.agregaNodo(nodo2,nodo4);
 
     tex1.setCoordinates(malla2.getEntidad().getMalla().getCoordinates())
-    tex1.setImagen("baldios.jpg");
+    tex1.setImagen("tex.png");
     console.log(tex1);
 
     malla2.getEntidad().getMalla().setTextura(tex1);
