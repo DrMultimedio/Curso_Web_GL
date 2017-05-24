@@ -19,7 +19,7 @@ Animacion.prototype.getNombre = function(){
 };
 
 Animacion.prototype.draw = function() {
-	console.log('Dibujo el frame actual modulo frames')
+	//console.log('Dibujo el frame actual modulo frames')
 	this.mallas[this.frame_actual%this.frames].draw();
 	this.frame_actual++;
 };

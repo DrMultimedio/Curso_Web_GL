@@ -215,10 +215,10 @@ function runWebGLApp() {
     luz1.getEntidad().setDifusa([1.0, 1.0, 1.0, 1.0]);
     luz2.getEntidad().setPosicion([200.0, 100.0, -200.0]);
 
-    luz2.getEntidad().setDifusa([0.0, 1.0, 1.0, 0.0]);
+    luz2.getEntidad().setDifusa([0.8, 1.0, 1.0, 0.0]);
 
     luz3.getEntidad().setPosicion([-2000.0, -15.0, 50.0]);
-    luz3.getEntidad().setDifusa([1.0, 0.0, 0.0, 0.0]);
+    luz3.getEntidad().setDifusa([1.0, 0.7, 0.7, 0.0]);
 
 
     motor.agregaLuz(luz1);
@@ -335,6 +335,7 @@ function cambia_malla(malla){
             else if(i<100) anim.pushMalla('models/micro/micro_0000'+i +'.obj');
             else anim.pushMalla('models/micro/micro_000'+i +'.obj');
         }
+        motor.getNodoObjetoPrincipal().setEntidad(anim);
 
     }
 
@@ -368,7 +369,7 @@ function cambia_malla(malla){
     }
     if(malla == 10){
         malla = new Malla(); 
-        malla.cargarMalla("models/Laptop.obj")
+        malla.cargarMalla("models/mac.obj")
 
         motor.getNodoObjetoPrincipal().setEntidad(malla);
         console.log(motor.getNodoObjetoPrincipal());

@@ -216,18 +216,24 @@ function runWebGLApp() {
 
     luz1.getEntidad().setPosicion([200.0, 100.0, 500.0]);
     luz1.getEntidad().setDifusa([1.0, 1.0, 1.0, 1.0]);
-    luz2.getEntidad().setPosicion([2000.0, 1000.0, 200.0]);
+    luz2.getEntidad().setPosicion([200.0, 100.0, -200.0]);
 
-    luz2.getEntidad().setDifusa([0.0, 1.0, 1.0, 0.0]);
+    luz2.getEntidad().setDifusa([1.0, 1.0, 1.0, 1.0]);
+
 
     luz3.getEntidad().setPosicion([-2000.0, -15.0, 50.0]);
-    luz3.getEntidad().setDifusa([1.0, 0.0, 0.0, 0.0]);
+    luz3.getEntidad().setDifusa([1.0, 1.0, 1.0, 1.0]);
+
 
 
     motor.agregaLuz(luz1);
     motor.agregaLuz(luz2);
     motor.agregaLuz(luz3);
-    
+
+    motor.setLuzActiva(0);
+    motor.setLuzActiva(1);
+    motor.setLuzActiva(2);
+
     var tex1 = new Textura();
 
     //motor.setLuzActiva(0);
@@ -244,7 +250,7 @@ function runWebGLApp() {
     motor.agregaNodo(nodo2,nodo4);
 
     tex1.setCoordinates(malla2.getEntidad().getMalla().getCoordinates())
-    tex1.setImagen("tex.png");
+    tex1.setImagen("tex4.png");
     console.log(tex1);
 
     malla2.getEntidad().getMalla().setTextura(tex1);
@@ -296,7 +302,6 @@ function luz_click(luz){
 
 <body onLoad='runWebGLApp()'>
 <div id='top'>
-<h1>Adivina que producto es</h1>
 </div>
 
 <div id='contents'>
@@ -309,9 +314,5 @@ Your browser does not support the HTML5 canvas element.
 
 
 <script>cview.run(cview.MODE_VIEW);</script>
-
-<button onclick="luz_click(1)">Luz 1 </button>
-<button onclick="luz_click(2)">Luz 2 </button>
-<button onclick="luz_click(3)">Luz 3 </button>
 </body>
 </html>
