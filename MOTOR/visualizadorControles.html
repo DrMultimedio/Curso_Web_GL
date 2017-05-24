@@ -336,10 +336,35 @@ function cambia_malla(malla){
             else anim.pushMalla('models/micro/micro_000'+i +'.obj');
         }
 
+    }
 
-        motor.getNodoObjetoPrincipal().setEntidad(anim);
+    if(malla == 6){
+        malla = new Malla(); 
+        malla.cargarMalla("models/flashlight.obj")
+
+        motor.getNodoObjetoPrincipal().setEntidad(malla);
         console.log(motor.getNodoObjetoPrincipal());
+    }
+    if(malla == 7){
+        malla = new Malla(); 
+        malla.cargarMalla("models/mouse_imac.obj")
 
+        motor.getNodoObjetoPrincipal().setEntidad(malla);
+        console.log(motor.getNodoObjetoPrincipal());
+    }
+    if(malla == 8){
+        malla = new Malla(); 
+        malla.cargarMalla("models/ifon.obj")
+
+        motor.getNodoObjetoPrincipal().setEntidad(malla);
+        console.log(motor.getNodoObjetoPrincipal());
+    }
+    if(malla == 9){
+        malla = new Malla(); 
+        malla.cargarMalla("models/microondas.obj")
+
+        motor.getNodoObjetoPrincipal().setEntidad(malla);
+        console.log(motor.getNodoObjetoPrincipal());
     }
 }
 </script>
@@ -365,9 +390,21 @@ Your browser does not support the HTML5 canvas element.
 <button onclick="luz_click(2)">Luz 2 </button>
 <button onclick="luz_click(3)">Luz 3 </button>
 <br>
+<h3>
+    Modelos
+</h3>
 <button onclick="cambia_malla(1)">BB8 </button>
-<button onclick="cambia_malla(2)">Animación</button>
 <button onclick="cambia_malla(3)">Cubito</button>
+<button onclick="cambia_malla(6)">Linterna</button>
+<button onclick="cambia_malla(7)">Mouse iMac</button>
+<button onclick="cambia_malla(8)">iPhone</button>
+<button onclick="cambia_malla(9)">Microondas</button>
+
+<h3>
+    Animaciones
+</h3>
+<button onclick="cambia_malla(2)">Cubo que gira</button>
+
 <button onclick="cambia_malla(4)">Mac</button>
 <button onclick="cambia_malla(5)">Microondas</button>
 
