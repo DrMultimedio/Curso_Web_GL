@@ -213,7 +213,7 @@ function runWebGLApp() {
 
     luz1.getEntidad().setPosicion([200.0, 100.0, 500.0]);
     luz1.getEntidad().setDifusa([1.0, 1.0, 1.0, 1.0]);
-    luz2.getEntidad().setPosicion([2000.0, 1000.0, 200.0]);
+    luz2.getEntidad().setPosicion([200.0, 100.0, -200.0]);
 
     luz2.getEntidad().setDifusa([0.0, 1.0, 1.0, 0.0]);
 
@@ -234,7 +234,7 @@ function runWebGLApp() {
     motor.agregaNodo(nodo1,nodo3);
     motor.agregaNodo(nodo2,nodo4);
 
-    tex1.setImagen("tex.png");
+    tex1.setImagen("tex3.png");
     console.log(tex1);
 
     malla2.getEntidad().getMalla().setTextura(tex1);
@@ -366,6 +366,28 @@ function cambia_malla(malla){
         motor.getNodoObjetoPrincipal().setEntidad(malla);
         console.log(motor.getNodoObjetoPrincipal());
     }
+    if(malla == 10){
+        malla = new Malla(); 
+        malla.cargarMalla("models/Laptop.obj")
+
+        motor.getNodoObjetoPrincipal().setEntidad(malla);
+        console.log(motor.getNodoObjetoPrincipal());
+    }
+    if(malla == 11){
+        malla = new Malla(); 
+        malla.cargarMalla("models/usb.obj")
+
+        motor.getNodoObjetoPrincipal().setEntidad(malla);
+        console.log(motor.getNodoObjetoPrincipal());
+    }
+    if(malla == 12){
+        malla = new Malla(); 
+        malla.cargarMalla("models/Monitor.obj")
+
+        motor.getNodoObjetoPrincipal().setEntidad(malla);
+        console.log(motor.getNodoObjetoPrincipal());
+    }
+
 }
 </script>
 </head>
@@ -399,6 +421,9 @@ Your browser does not support the HTML5 canvas element.
 <button onclick="cambia_malla(7)">Mouse iMac</button>
 <button onclick="cambia_malla(8)">iPhone</button>
 <button onclick="cambia_malla(9)">Microondas</button>
+<button onclick="cambia_malla(10)">Portatil</button>
+<button onclick="cambia_malla(11)">USB</button>
+<button onclick="cambia_malla(12)">Monitor</button>
 
 <h3>
     Animaciones
